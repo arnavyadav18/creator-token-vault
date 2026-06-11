@@ -1,0 +1,24 @@
+databases:
+  - name: creator-token-vault-db
+    plan: free
+    databaseName: creatortokenvault
+    user: creatortokenvault
+
+services:
+  - type: web
+    name: creator-token-vault
+    plan: free
+    runtime: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn app:app"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: creator-token-vault-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ADMIN_PASSWORD
+        value: "changeme123"
+      - key: PYTHON_VERSION
+        value: "3.11.9"
