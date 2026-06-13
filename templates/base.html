@@ -15,25 +15,94 @@
         }
     </script>
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    
     <script>
         tailwind.config = {
-            darkMode: 'class',
+            darkMode: "class",
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                        display: ['Outfit', 'system-ui', 'sans-serif'],
-                    },
                     colors: {
-                        brand: {
-                            blue: '#0d6efd',
-                            'blue-light': '#3b82f6',
-                            'blue-dark': '#0056b3',
-                        }
+                        "background": "#121315",
+                        "tertiary-fixed-dim": "#ffb693",
+                        "inverse-primary": "#005cbb",
+                        "surface-variant": "#343537",
+                        "glass-border": "rgba(255, 255, 255, 0.1)",
+                        "on-error": "#690005",
+                        "secondary-container": "#454749",
+                        "on-primary": "#002f66",
+                        "secondary-fixed-dim": "#c6c6c8",
+                        "on-secondary-fixed-variant": "#454749",
+                        "on-surface": "#e3e2e4",
+                        "on-error-container": "#ffdad6",
+                        "on-tertiary-container": "#fffaf9",
+                        "surface-container-lowest": "#0d0e10",
+                        "primary-container": "#0071e3",
+                        "surface-bright": "#38393b",
+                        "on-secondary-container": "#b4b5b7",
+                        "surface-container-low": "#1b1c1e",
+                        "on-tertiary": "#562000",
+                        "on-primary-fixed": "#001b3f",
+                        "surface": "#121315",
+                        "on-background": "#e3e2e4",
+                        "surface-container-high": "#292a2c",
+                        "secondary-fixed": "#e2e2e4",
+                        "outline-variant": "#414753",
+                        "surface-container-highest": "#343537",
+                        "secondary": "#c6c6c8",
+                        "on-surface-variant": "#c1c6d6",
+                        "primary-fixed": "#d7e2ff",
+                        "primary": "#abc7ff",
+                        "error-container": "#93000a",
+                        "error": "#ffb4ab",
+                        "on-primary-container": "#fcfbff",
+                        "outline": "#8b919f",
+                        "surface-container": "#1f2022",
+                        "surface-tint": "#abc7ff",
+                        "tertiary-fixed": "#ffdbcb",
+                        "subtle-gray": "#EFEFEF",
+                        "on-secondary": "#2f3132",
+                        "glass-bg": "rgba(15, 16, 18, 0.7)",
+                        "primary-fixed-dim": "#abc7ff",
+                        "tertiary": "#ffb693",
+                        "on-tertiary-fixed-variant": "#7a3000",
+                        "inverse-surface": "#e3e2e4",
+                        "surface-dim": "#121315",
+                        "inverse-on-surface": "#303033",
+                        "on-tertiary-fixed": "#341000",
+                        "on-primary-fixed-variant": "#00458f",
+                        "on-secondary-fixed": "#1a1c1d",
+                        "tertiary-container": "#c25100"
+                    },
+                    spacing: {
+                        "margin-mobile": "20px",
+                        "section-gap": "128px",
+                        "unit": "8px",
+                        "margin-desktop": "64px",
+                        "gutter": "24px",
+                        "container-max": "1200px"
+                    },
+                    fontFamily: {
+                        "display-lg-mobile": ["Hanken Grotesk"],
+                        "label-mono": ["JetBrains Mono"],
+                        "body-lg": ["Hanken Grotesk"],
+                        "body-md": ["Hanken Grotesk"],
+                        "display-lg": ["Hanken Grotesk"],
+                        "headline-md": ["Hanken Grotesk"],
+                        sans: ['Hanken Grotesk', 'system-ui', 'sans-serif'],
+                        display: ['Hanken Grotesk', 'system-ui', 'sans-serif'],
+                    },
+                    fontSize: {
+                        "display-lg-mobile": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "label-mono": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                        "display-lg": ["72px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "600"}],
+                        "headline-md": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.02em", "fontWeight": "500"}]
                     },
                     animation: {
                         'glow-pulse': 'glow-pulse 3s ease-in-out infinite',
@@ -67,20 +136,36 @@
         /* Custom scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #f8fafc; }
-        .dark ::-webkit-scrollbar-track { background: #0f172a; }
+        .dark ::-webkit-scrollbar-track { background: #121315; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        .dark ::-webkit-scrollbar-thumb { background: #334155; }
+        .dark ::-webkit-scrollbar-thumb { background: #343537; }
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-        .dark ::-webkit-scrollbar-thumb:hover { background: #475569; }
+        .dark ::-webkit-scrollbar-thumb:hover { background: #454749; }
         html { scrollbar-color: #cbd5e1 #f8fafc; }
-        html.dark { scrollbar-color: #334155 #0f172a; }
+        html.dark { scrollbar-color: #343537 #121315; }
 
-        /* Glass effect utility */
-        .glass { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-        .dark .glass { background: rgba(15, 23, 42, 0.7); border-color: rgba(30, 41, 59, 0.6); }
+        /* Glass effect utility from mockup */
+        .glass-effect {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .dark .glass-effect {
+            background: rgba(15, 16, 18, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
 
-        .glass-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(226, 232, 240, 0.8); }
-        .dark .glass-card { background: rgba(30, 41, 59, 0.7); border-color: rgba(51, 65, 85, 0.8); }
+        /* Support for original glass class mapping to new glass-effect */
+        .glass { @apply glass-effect; }
+        .glass-card { @apply glass-effect; }
+
+        /* Hero Gradient from mockup */
+        .hero-gradient {
+            background: radial-gradient(circle at 50% 50%, rgba(0, 92, 187, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
+        }
+        .dark .hero-gradient {
+            background: radial-gradient(circle at 50% 50%, rgba(0, 92, 187, 0.1) 0%, rgba(15, 16, 18, 0) 70%);
+        }
 
         /* Subtle gradient text */
         .gradient-text {
@@ -116,93 +201,106 @@
             background: linear-gradient(to right, transparent, rgba(255,255,255,0.03), transparent);
         }
         .shine-hover:hover::after { transform: rotate(30deg) translateX(100%); }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        body {
+            background-color: #f8fafc;
+            color: #0f172a;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .dark body {
+            background-color: #0F1012;
+            color: #e3e2e4;
+        }
     </style>
 </head>
-<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans min-h-screen flex flex-col antialiased transition-colors duration-200">
+<body class="font-body-md text-body-md overflow-x-hidden min-h-screen flex flex-col antialiased">
 
     <!-- Navbar -->
-    <nav class="glass sticky top-0 z-50 border-b border-slate-200/60 dark:border-slate-800/60 shadow-sm dark:shadow-none">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <!-- Logo -->
-                <a href="{{ url_for('admin') }}" class="flex items-center group no-underline" style="text-decoration:none;" id="nav-logo">
-                    <span class="font-display font-black text-2xl tracking-tighter text-blue-700 dark:text-blue-500">
-                        CV
-                    </span>
-                </a>
+    <header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-glass-bg backdrop-blur-xl border-b border-slate-200 dark:border-glass-border transition-colors duration-200 shadow-sm dark:shadow-none">
+        <div class="flex justify-between items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <!-- Logo -->
+            <a href="{{ url_for('admin') if current_user.is_authenticated and current_user.is_admin else url_for('index') }}" class="flex items-center group no-underline" style="text-decoration:none;" id="nav-logo">
+                <span class="font-display font-black text-2xl tracking-tighter text-blue-700 dark:text-primary">
+                    CV
+                </span>
+            </a>
 
-                <!-- Desktop Nav -->
-                <div class="hidden md:flex items-center gap-2">
-                    <a href="{{ url_for('index') }}" class="px-4 py-2 rounded-lg text-sm font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors border-b-2 border-blue-600 dark:border-blue-400" id="nav-tools">Tools</a>
-                    {% if current_user.is_authenticated %}
-                        <a href="{{ url_for('verify') }}" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-all duration-200" id="nav-verify">Verify</a>
-                        <a href="{{ url_for('vault') }}" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-all duration-200" id="nav-vault">Vault</a>
-                        {% if current_user.is_admin %}
-                            <a href="{{ url_for('admin') }}" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-amber-400 hover:text-slate-900 dark:hover:text-amber-300 hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-all duration-200" id="nav-admin">Admin Panel</a>
-                        {% endif %}
-                        <!-- Token Balance Pill -->
-                        <div class="ml-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-blue-600 dark:text-blue-400 text-xs font-bold uppercase tracking-wide" id="nav-token-pill">
-                            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5" fill="none"/><text x="10" y="14" text-anchor="middle" font-size="10" fill="currentColor">T</text></svg>
-                            {{ current_user.token_balance }} Tokens
-                        </div>
-                        <a href="{{ url_for('logout') }}" class="ml-2 px-4 py-2 rounded-lg text-sm font-medium text-slate-500 dark:text-red-400 hover:text-slate-700 dark:hover:text-red-300 hover:bg-slate-100 dark:hover:bg-red-500/10 transition-all duration-200" id="nav-logout">Logout</a>
-                    {% else %}
-                        <a href="{{ url_for('login') }}" class="ml-4 px-4 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all duration-200" id="nav-login">Login</a>
-                        <a href="{{ url_for('register') }}" class="ml-2 px-6 py-2 rounded-full text-sm font-semibold bg-blue-600 dark:bg-blue-600 text-white hover:bg-blue-700 dark:hover:bg-blue-500 shadow-md shadow-blue-500/20 hover:shadow-blue-500/40 transition-all duration-200" id="nav-register">Register</a>
+            <!-- Desktop Nav -->
+            <div class="hidden md:flex items-center gap-2">
+                <a href="{{ url_for('index') }}" class="px-4 py-2 rounded-lg text-sm font-semibold text-blue-600 dark:text-primary hover:text-blue-800 dark:hover:text-primary-fixed transition-colors border-b-2 border-blue-600 dark:border-primary" id="nav-tools">Tools</a>
+                {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('verify') }}" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-on-surface-variant hover:text-slate-900 dark:hover:text-on-surface hover:bg-slate-100 dark:hover:bg-surface-variant transition-all duration-200" id="nav-verify">Verify</a>
+                    <a href="{{ url_for('vault') }}" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-on-surface-variant hover:text-slate-900 dark:hover:text-on-surface hover:bg-slate-100 dark:hover:bg-surface-variant transition-all duration-200" id="nav-vault">Vault</a>
+                    {% if current_user.is_admin %}
+                        <a href="{{ url_for('admin') }}" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-amber-400 hover:text-slate-900 dark:hover:text-amber-300 hover:bg-slate-100 dark:hover:bg-surface-variant transition-all duration-200" id="nav-admin">Admin Panel</a>
                     {% endif %}
-                    
-                    <!-- Theme Toggle (Desktop) -->
-                    <button id="theme-toggle" type="button" class="ml-4 p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-200 dark:focus:ring-slate-700 transition-colors">
-                        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-                        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
-                    </button>
-                </div>
+                    <!-- Token Balance Pill -->
+                    <div class="ml-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-surface-variant border border-slate-200 dark:border-glass-border text-blue-600 dark:text-primary text-xs font-bold uppercase tracking-wide" id="nav-token-pill">
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5" fill="none"/><text x="10" y="14" text-anchor="middle" font-size="10" fill="currentColor">T</text></svg>
+                        {{ current_user.token_balance }} Tokens
+                    </div>
+                    <a href="{{ url_for('logout') }}" class="ml-2 px-4 py-2 rounded-lg text-sm font-medium text-slate-500 dark:text-red-400 hover:text-slate-700 dark:hover:text-red-300 hover:bg-slate-100 dark:hover:bg-red-500/10 transition-all duration-200" id="nav-logout">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="ml-4 px-4 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-on-surface-variant hover:text-slate-900 dark:hover:text-on-surface transition-all duration-200" id="nav-login">Login</a>
+                    <a href="{{ url_for('register') }}" class="ml-2 px-6 py-2 rounded-full text-sm font-semibold bg-slate-900 dark:bg-subtle-gray text-white dark:text-surface-container-lowest hover:bg-slate-800 dark:hover:bg-white shadow-md transition-all duration-200" id="nav-register">Register</a>
+                {% endif %}
+                
+                <!-- Theme Toggle (Desktop) -->
+                <button id="theme-toggle" type="button" class="ml-4 p-2 rounded-lg text-slate-500 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-surface-variant focus:outline-none transition-colors">
+                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                </button>
+            </div>
 
-                <!-- Mobile Menu Toggle & Theme Toggle -->
-                <div class="flex items-center gap-2 md:hidden">
-                    <button id="theme-toggle-mobile" type="button" class="p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none transition-colors">
-                        <svg id="theme-toggle-dark-icon-mobile" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-                        <svg id="theme-toggle-light-icon-mobile" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
-                    </button>
-                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition" id="mobile-menu-btn">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
-                    </button>
-                </div>
+            <!-- Mobile Menu Toggle & Theme Toggle -->
+            <div class="flex items-center gap-2 md:hidden">
+                <button id="theme-toggle-mobile" type="button" class="p-2 rounded-lg text-slate-500 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-surface-variant focus:outline-none transition-colors">
+                    <svg id="theme-toggle-dark-icon-mobile" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg id="theme-toggle-light-icon-mobile" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                </button>
+                <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="p-2 rounded-lg text-slate-500 dark:text-on-surface-variant hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-surface-variant transition" id="mobile-menu-btn">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
             </div>
         </div>
 
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 pb-4 shadow-lg absolute w-full">
+        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 dark:border-glass-border bg-white dark:bg-surface pb-4 shadow-lg absolute w-full">
             <div class="px-4 pt-3 space-y-1">
-                <a href="{{ url_for('index') }}" class="block px-4 py-2 rounded-lg text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60">Tools</a>
+                <a href="{{ url_for('index') }}" class="block px-4 py-2 rounded-lg text-sm text-slate-600 dark:text-on-surface-variant hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-surface-variant">Tools</a>
                 {% if current_user.is_authenticated %}
-                    <a href="{{ url_for('verify') }}" class="block px-4 py-2 rounded-lg text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60">Verify Purchase</a>
-                    <a href="{{ url_for('vault') }}" class="block px-4 py-2 rounded-lg text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60">Vault</a>
+                    <a href="{{ url_for('verify') }}" class="block px-4 py-2 rounded-lg text-sm text-slate-600 dark:text-on-surface-variant hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-surface-variant">Verify Purchase</a>
+                    <a href="{{ url_for('vault') }}" class="block px-4 py-2 rounded-lg text-sm text-slate-600 dark:text-on-surface-variant hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-surface-variant">Vault</a>
                     {% if current_user.is_admin %}
-                        <a href="{{ url_for('admin') }}" class="block px-4 py-2 rounded-lg text-sm text-slate-600 dark:text-amber-400 hover:text-slate-900 dark:hover:text-amber-300 hover:bg-slate-100 dark:hover:bg-slate-800/60">Admin Panel</a>
+                        <a href="{{ url_for('admin') }}" class="block px-4 py-2 rounded-lg text-sm text-slate-600 dark:text-amber-400 hover:text-slate-900 dark:hover:text-amber-300 hover:bg-slate-100 dark:hover:bg-surface-variant">Admin Panel</a>
                     {% endif %}
-                    <div class="px-4 py-2 text-blue-600 dark:text-blue-400 text-sm font-semibold">🪙 {{ current_user.token_balance }} Tokens</div>
+                    <div class="px-4 py-2 text-blue-600 dark:text-primary text-sm font-semibold">🪙 {{ current_user.token_balance }} Tokens</div>
                     <a href="{{ url_for('logout') }}" class="block px-4 py-2 rounded-lg text-sm text-slate-500 dark:text-red-400 hover:bg-slate-100 dark:hover:bg-red-500/10">Logout</a>
                 {% else %}
-                    <a href="{{ url_for('login') }}" class="block px-4 py-2 rounded-lg text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60">Login</a>
-                    <a href="{{ url_for('register') }}" class="block px-4 py-2 rounded-lg text-sm text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-500/10 font-semibold">Register</a>
+                    <a href="{{ url_for('login') }}" class="block px-4 py-2 rounded-lg text-sm text-slate-600 dark:text-on-surface-variant hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-surface-variant">Login</a>
+                    <a href="{{ url_for('register') }}" class="block px-4 py-2 rounded-lg text-sm text-blue-600 dark:text-primary hover:bg-blue-50 dark:hover:bg-primary/10 font-semibold">Register</a>
                 {% endif %}
             </div>
         </div>
-    </nav>
+    </header>
 
     <!-- Flash Messages -->
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 space-y-2 animate-slide-up relative z-40" id="flash-messages">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 space-y-2 animate-slide-up relative z-40" id="flash-messages">
                 {% for category, message in messages %}
-                    <div class="flex items-center gap-3 px-5 py-3 rounded-xl border shadow-sm dark:shadow-none bg-white dark:bg-slate-900
+                    <div class="flex items-center gap-3 px-5 py-3 rounded-xl border shadow-sm dark:shadow-none bg-white dark:bg-surface-container
                         {% if category == 'success' %}
                             border-emerald-200 dark:border-emerald-500/30 text-emerald-800 dark:text-emerald-300
                         {% elif category == 'error' %}
                             border-red-200 dark:border-red-500/30 text-red-800 dark:text-red-300
                         {% else %}
-                            border-blue-200 dark:border-blue-500/30 text-blue-800 dark:text-blue-300
+                            border-blue-200 dark:border-primary/30 text-blue-800 dark:text-primary
                         {% endif %}
                     ">
                         {% if category == 'success' %}
@@ -210,7 +308,7 @@
                         {% elif category == 'error' %}
                             <svg class="w-5 h-5 shrink-0 text-red-500 dark:text-red-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
                         {% else %}
-                            <svg class="w-5 h-5 shrink-0 text-blue-500 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
+                            <svg class="w-5 h-5 shrink-0 text-blue-500 dark:text-primary" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
                         {% endif %}
                         <span class="text-sm font-medium">{{ message }}</span>
                     </div>
@@ -220,19 +318,19 @@
     {% endwith %}
 
     <!-- Main Content -->
-    <main class="flex-1 w-full bg-[#f8f9fc] dark:bg-slate-950 transition-colors duration-200">
+    <main class="flex-1 w-full pt-28 pb-16 transition-colors duration-200">
         {% block content %}{% endblock %}
     </main>
 
     <!-- Footer -->
-    <footer class="bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 mt-auto transition-colors duration-200">
+    <footer class="bg-slate-100 dark:bg-surface-container-lowest border-t border-slate-200 dark:border-glass-border mt-auto transition-colors duration-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-                <div class="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-sm">
-                    <span class="font-display font-black text-blue-700 dark:text-blue-500 text-lg">CV</span>
+                <div class="flex items-center gap-2 text-slate-500 dark:text-on-surface-variant text-sm">
+                    <span class="font-display-lg font-black text-blue-700 dark:text-primary text-lg">CV</span>
                     <span>&copy; {{ now().year if now is defined else '2026' }} Creator Token Vault. All rights reserved.</span>
                 </div>
-                <div class="flex items-center gap-6 text-sm text-slate-500 dark:text-slate-400">
+                <div class="flex items-center gap-6 text-sm text-slate-500 dark:text-on-surface-variant">
                     <a href="{{ url_for('index') }}" class="hover:text-slate-900 dark:hover:text-white transition">Tools</a>
                     <a href="#" class="hover:text-slate-900 dark:hover:text-white transition">Privacy Policy</a>
                     <a href="#" class="hover:text-slate-900 dark:hover:text-white transition">Terms of Service</a>
@@ -294,6 +392,25 @@
             themeToggleBtnMobile.addEventListener('click', toggleTheme);
         }
         setupThemeToggles();
+
+        // Sticky header logic
+        let lastScroll = 0;
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            if (currentScroll <= 0) {
+                header.classList.remove('shadow-lg');
+                return;
+            }
+            if (currentScroll > lastScroll) {
+                header.style.transform = 'translateY(-100%)';
+                header.style.transition = 'transform 0.3s ease-in-out';
+            } else {
+                header.style.transform = 'translateY(0)';
+                header.classList.add('shadow-lg');
+            }
+            lastScroll = currentScroll;
+        });
     </script>
     
     {% block scripts %}{% endblock %}
