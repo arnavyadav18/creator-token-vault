@@ -2,40 +2,44 @@
 {% block title %}Your Vault — Creator Token Vault{% endblock %}
 
 {% block content %}
-<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 transition-colors duration-200">
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="animate-fade-in">
         <!-- Header -->
-        <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-10 gap-4">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-10 gap-4 border-b border-white/5 pb-6">
             <div>
-                <h1 class="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-2">Your Vault</h1>
-                <p class="text-slate-500 dark:text-slate-400 text-sm">Manage your tokens and unlock exclusive rewards</p>
+                <p class="text-[10px] font-bold tracking-[0.2em] text-blue-500 uppercase mb-2">User Dashboard</p>
+                <h1 class="font-sans text-3xl md:text-4xl font-bold text-white mb-2">Your Vault</h1>
+                <p class="text-slate-400 text-sm font-light">Manage your tokens and unlock exclusive rewards.</p>
             </div>
-            <a href="{{ url_for('verify') }}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-100 dark:border-blue-500/20 text-blue-700 dark:text-blue-400 text-sm font-semibold hover:bg-blue-100 dark:hover:bg-blue-500/20 transition-all" id="vault-verify-link">
+            <a href="{{ url_for('verify') }}" class="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white text-sm font-bold hover:bg-blue-500 transition-colors" id="vault-verify-link">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
-                Submit New Verification
+                Submit Verification
             </a>
         </div>
 
         <!-- Token Balance Card -->
         <div class="mb-10 animate-slide-up">
-            <div class="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden shadow-sm dark:shadow-none hover:shadow-md transition-all duration-300">
-                <div class="relative p-8 md:p-10">
+            <div class="relative bg-[#111] border border-white/10 overflow-hidden">
+                <div class="absolute inset-0 z-0 opacity-20 pointer-events-none">
+                    <div class="absolute top-[-50%] right-[-10%] w-[50%] h-[150%] bg-blue-600/20 blur-[100px] rounded-full"></div>
+                </div>
+                <div class="relative z-10 p-8 md:p-10">
                     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                         <div>
-                            <p class="text-slate-400 dark:text-slate-500 text-sm font-bold uppercase tracking-wider mb-1">Token Balance</p>
+                            <p class="text-slate-500 text-[10px] font-bold uppercase tracking-[0.2em] mb-2">Token Balance</p>
                             <div class="flex items-baseline gap-3">
-                                <span class="font-display text-6xl md:text-7xl font-extrabold text-blue-600 dark:text-blue-400" id="vault-balance">
+                                <span class="font-sans text-6xl md:text-7xl font-bold text-blue-400" id="vault-balance">
                                     {{ current_user.token_balance }}
                                 </span>
-                                <span class="text-slate-400 dark:text-slate-500 text-lg font-medium">tokens</span>
+                                <span class="text-slate-500 text-lg font-light tracking-widest uppercase">tokens</span>
                             </div>
                         </div>
                         <div class="flex items-center gap-3 text-sm">
-                            <div class="px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700 text-slate-500 dark:text-slate-400">
-                                <span class="text-slate-400 dark:text-slate-500">Username:</span> <span class="text-slate-800 dark:text-white font-semibold">{{ current_user.username }}</span>
+                            <div class="px-4 py-2.5 bg-[#0a0a0a] border border-white/5 text-slate-400">
+                                <span class="text-slate-500 text-[10px] font-bold uppercase tracking-wider">User:</span> <span class="text-white font-medium ml-1">{{ current_user.username }}</span>
                             </div>
-                            <div class="px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700 text-slate-500 dark:text-slate-400">
-                                <span class="text-slate-400 dark:text-slate-500">Email:</span> <span class="text-slate-800 dark:text-white font-semibold">{{ current_user.email }}</span>
+                            <div class="px-4 py-2.5 bg-[#0a0a0a] border border-white/5 text-slate-400">
+                                <span class="text-slate-500 text-[10px] font-bold uppercase tracking-wider">Email:</span> <span class="text-white font-medium ml-1">{{ current_user.email }}</span>
                             </div>
                         </div>
                     </div>
@@ -46,30 +50,30 @@
         <!-- Holding Tokens Section -->
         {% if holding_verifications %}
         <div class="mb-10 animate-slide-up">
-            <div class="bg-amber-50 dark:bg-amber-500/10 border border-amber-100 dark:border-amber-500/20 rounded-2xl p-6 shadow-sm dark:shadow-none transition-colors duration-200">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-500/20 flex items-center justify-center text-xl">⏳</div>
+            <div class="bg-[#111] border border-amber-500/20 p-6">
+                <div class="flex items-center gap-3 mb-4 border-b border-white/5 pb-4">
+                    <div class="w-8 h-8 flex items-center justify-center text-xl">⏳</div>
                     <div>
-                        <h3 class="font-display font-bold text-amber-800 dark:text-amber-400 text-lg">Pending / Holding Tokens</h3>
-                        <p class="text-amber-600 dark:text-amber-500/80 text-xs">These tokens are in a 14-day holding period and will be auto-credited upon clearance.</p>
+                        <h3 class="font-sans font-bold text-amber-500 text-lg">Holding Tokens</h3>
+                        <p class="text-slate-400 text-xs font-light">Tokens in 14-day clearance.</p>
                     </div>
                 </div>
                 <div class="space-y-3">
                     {% for v in holding_verifications %}
-                    <div class="flex items-center justify-between bg-white dark:bg-slate-900 rounded-xl px-5 py-3 border border-amber-100 dark:border-slate-800 shadow-sm dark:shadow-none transition-colors duration-200">
+                    <div class="flex items-center justify-between bg-[#0a0a0a] border border-white/5 px-5 py-3">
                         <div class="flex items-center gap-3">
                             <span class="text-lg">{{ v.tool.icon_emoji }}</span>
                             <div>
-                                <p class="text-slate-800 dark:text-white text-sm font-medium">{{ v.tool.name }}</p>
-                                <p class="text-slate-400 dark:text-slate-500 text-xs font-mono">{{ v.order_id }}</p>
+                                <p class="text-white text-sm font-bold">{{ v.tool.name }}</p>
+                                <p class="text-slate-500 text-[10px] font-mono tracking-wider">{{ v.order_id }}</p>
                             </div>
                         </div>
                         <div class="text-right">
-                            <div class="flex items-center gap-1.5 text-amber-600 dark:text-amber-500 text-sm font-semibold">
+                            <div class="flex items-center gap-1.5 text-amber-500 text-sm font-bold tracking-wider">
                                 <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-                                +{{ v.tool.token_reward }} tokens
+                                +{{ v.tool.token_reward }}
                             </div>
-                            <p class="text-slate-400 dark:text-slate-500 text-xs mt-0.5">Clears {{ v.holding_until.strftime('%b %d, %Y') }}</p>
+                            <p class="text-slate-500 text-[10px] font-bold uppercase tracking-wider mt-1">Clears {{ v.holding_until.strftime('%b %d') }}</p>
                         </div>
                     </div>
                     {% endfor %}
@@ -81,67 +85,63 @@
         <!-- Referral Section -->
         {% if current_user.referral_code %}
         <div class="mb-10">
-            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm dark:shadow-none transition-colors duration-200">
+            <div class="bg-[#111] border border-purple-500/20 p-6">
                 <div class="flex items-center gap-3 mb-3">
-                    <div class="w-10 h-10 rounded-xl bg-purple-50 dark:bg-purple-500/10 flex items-center justify-center text-xl">🤝</div>
+                    <div class="w-8 h-8 flex items-center justify-center text-xl">🤝</div>
                     <div>
-                        <h3 class="font-display font-bold text-slate-900 dark:text-white text-lg">Referral Program</h3>
-                        <p class="text-slate-500 dark:text-slate-400 text-xs">Earn 20 bonus tokens for every friend who signs up using your link!</p>
+                        <h3 class="font-sans font-bold text-white text-lg">Referral Program</h3>
+                        <p class="text-slate-400 text-xs font-light">Earn 20 bonus tokens per sign up.</p>
                     </div>
                 </div>
-                <div class="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 border border-slate-100 dark:border-slate-700 transition-colors duration-200">
-                    <p class="text-xs text-purple-600 dark:text-purple-400 font-bold uppercase tracking-wider mb-2">Your Referral Link</p>
-                    <code class="block text-slate-700 dark:text-slate-300 font-mono text-sm font-medium break-all" id="referral-link">{{ request.host_url }}ref/{{ current_user.referral_code }}</code>
+                <div class="bg-[#0a0a0a] border border-white/5 p-4">
+                    <p class="text-[10px] text-purple-400 font-bold uppercase tracking-[0.2em] mb-2">Your Link</p>
+                    <code class="block text-slate-300 font-mono text-sm break-all" id="referral-link">{{ request.host_url }}ref/{{ current_user.referral_code }}</code>
                 </div>
             </div>
         </div>
         {% endif %}
 
         <!-- Reward Panels -->
-        <h2 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-6">Redeem Rewards</h2>
+        <h2 class="font-sans text-2xl font-bold text-white mb-6 border-b border-white/5 pb-4">Exchange Vault</h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- Chrome Extension Key Panel -->
-            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 md:p-8 shadow-sm dark:shadow-none hover:shadow-md transition-all duration-300" id="reward-extension-key">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-500/10 flex items-center justify-center text-2xl border border-blue-100 dark:border-blue-500/20">
-                        🔑
-                    </div>
+            <div class="bg-[#111] border border-white/10 p-6 md:p-8 flex flex-col" id="reward-extension-key">
+                <div class="flex items-center gap-3 mb-4 border-b border-white/5 pb-4">
+                    <div class="text-2xl">🔑</div>
                     <div>
-                        <h3 class="font-display font-bold text-slate-900 dark:text-white text-lg">Chrome Extension Key</h3>
-                        <div class="flex items-center gap-1.5 text-xs mt-1">
-                            <span class="px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400 font-bold uppercase tracking-wider">100 tokens</span>
-                        </div>
+                        <h3 class="font-sans font-bold text-white text-lg">Chrome Extension Key</h3>
+                        <div class="text-[10px] text-blue-400 font-bold uppercase tracking-[0.2em] mt-1">100 tokens</div>
                     </div>
                 </div>
 
-                <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6">
-                    Generate a unique 16-character access key for the Creator Token Vault Chrome extension. One key per account.
+                <p class="text-slate-400 text-xs font-light leading-relaxed mb-6 flex-1">
+                    Generate a unique 16-character access key for the Creator Token Vault Chrome extension.
                 </p>
 
                 {% if current_user.access_key %}
-                    <div class="bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-100 dark:border-emerald-500/20 rounded-xl p-4 mb-4">
-                        <p class="text-xs text-emerald-700 dark:text-emerald-400 font-bold uppercase tracking-wider mb-2">Your Extension Key</p>
-                        <code class="block text-emerald-800 dark:text-emerald-300 font-mono text-lg font-bold tracking-widest" id="extension-key-value">{{ current_user.access_key }}</code>
+                    <div class="bg-[#0a0a0a] border border-emerald-500/20 p-4 mb-4">
+                        <p class="text-[10px] text-emerald-500 font-bold uppercase tracking-[0.2em] mb-2">Your Key</p>
+                        <code class="block text-emerald-400 font-mono text-lg font-bold tracking-widest" id="extension-key-value">{{ current_user.access_key }}</code>
                     </div>
-                    <div class="flex items-center gap-2 text-sm text-emerald-600 dark:text-emerald-400">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                        <span class="font-bold">Redeemed</span>
+                    <div class="flex items-center gap-2 text-[10px] text-emerald-500 font-bold uppercase tracking-[0.2em]">
+                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                        Redeemed
                     </div>
                 {% else %}
                     <form method="POST" action="{{ url_for('redeem_key') }}">
                         <button type="submit" id="redeem-key-btn"
-                                class="w-full py-3.5 rounded-xl text-sm font-bold transition-all duration-200
+                                class="w-full py-3 text-xs font-bold uppercase tracking-[0.1em] transition-colors
                                 {% if current_user.token_balance >= 100 %}
-                                    bg-blue-600 text-white hover:bg-blue-700 shadow-md shadow-blue-600/20 dark:shadow-none
+                                    bg-blue-600 text-white hover:bg-blue-500
                                 {% else %}
-                                    bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 cursor-not-allowed
+                                    bg-[#0a0a0a] border border-white/10 text-slate-600 cursor-not-allowed
                                 {% endif %}"
                                 {% if current_user.token_balance < 100 %}disabled{% endif %}>
                             {% if current_user.token_balance >= 100 %}
-                                🔓 Redeem Extension Key (100 Tokens)
+                                Redeem (100)
                             {% else %}
-                                🔒 Need {{ 100 - current_user.token_balance }} more tokens
+                                Locked (Need {{ 100 - current_user.token_balance }})
                             {% endif %}
                         </button>
                     </form>
@@ -149,46 +149,42 @@
             </div>
 
             <!-- Cinematic Asset Pack Panel -->
-            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 md:p-8 shadow-sm dark:shadow-none hover:shadow-md transition-all duration-300" id="reward-asset-pack">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-12 h-12 rounded-xl bg-purple-50 dark:bg-purple-500/10 flex items-center justify-center text-2xl border border-purple-100 dark:border-purple-500/20">
-                        🎬
-                    </div>
+            <div class="bg-[#111] border border-white/10 p-6 md:p-8 flex flex-col" id="reward-asset-pack">
+                <div class="flex items-center gap-3 mb-4 border-b border-white/5 pb-4">
+                    <div class="text-2xl">🎬</div>
                     <div>
-                        <h3 class="font-display font-bold text-slate-900 dark:text-white text-lg">Cinematic Video Asset Pack</h3>
-                        <div class="flex items-center gap-1.5 text-xs mt-1">
-                            <span class="px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400 font-bold uppercase tracking-wider">50 tokens</span>
-                        </div>
+                        <h3 class="font-sans font-bold text-white text-lg">Cinematic Asset Pack</h3>
+                        <div class="text-[10px] text-blue-400 font-bold uppercase tracking-[0.2em] mt-1">50 tokens</div>
                     </div>
                 </div>
 
-                <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6">
-                    Unlock a curated collection of premium cinematic video assets, overlays, transitions, and LUTs for your creator workflow.
+                <p class="text-slate-400 text-xs font-light leading-relaxed mb-6 flex-1">
+                    Unlock a curated collection of premium cinematic video assets, overlays, transitions, and LUTs.
                 </p>
 
                 {% if current_user.unlocked_assets %}
-                    <div class="bg-purple-50 dark:bg-purple-500/10 border border-purple-100 dark:border-purple-500/20 rounded-xl p-4 mb-4">
-                        <p class="text-xs text-purple-700 dark:text-purple-400 font-bold uppercase tracking-wider mb-1">Status</p>
-                        <p class="text-purple-800 dark:text-purple-300 font-semibold text-sm">Asset Pack Unlocked — Check your email</p>
+                    <div class="bg-[#0a0a0a] border border-purple-500/20 p-4 mb-4">
+                        <p class="text-[10px] text-purple-500 font-bold uppercase tracking-[0.2em] mb-1">Status</p>
+                        <p class="text-purple-400 font-bold text-sm">Unlocked (Check Email)</p>
                     </div>
-                    <div class="flex items-center gap-2 text-sm text-purple-600 dark:text-purple-400">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                        <span class="font-bold">Unlocked</span>
+                    <div class="flex items-center gap-2 text-[10px] text-purple-500 font-bold uppercase tracking-[0.2em]">
+                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                        Redeemed
                     </div>
                 {% else %}
                     <form method="POST" action="{{ url_for('redeem_assets') }}">
                         <button type="submit" id="redeem-assets-btn"
-                                class="w-full py-3.5 rounded-xl text-sm font-bold transition-all duration-200
+                                class="w-full py-3 text-xs font-bold uppercase tracking-[0.1em] transition-colors
                                 {% if current_user.token_balance >= 50 %}
-                                    bg-blue-600 text-white hover:bg-blue-700 shadow-md shadow-blue-600/20 dark:shadow-none
+                                    bg-blue-600 text-white hover:bg-blue-500
                                 {% else %}
-                                    bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 cursor-not-allowed
+                                    bg-[#0a0a0a] border border-white/10 text-slate-600 cursor-not-allowed
                                 {% endif %}"
                                 {% if current_user.token_balance < 50 %}disabled{% endif %}>
                             {% if current_user.token_balance >= 50 %}
-                                🔓 Unlock Asset Pack (50 Tokens)
+                                Redeem (50)
                             {% else %}
-                                🔒 Need {{ 50 - current_user.token_balance }} more tokens
+                                Locked (Need {{ 50 - current_user.token_balance }})
                             {% endif %}
                         </button>
                     </form>
@@ -197,41 +193,37 @@
 
             <!-- Dynamic Rewards from Admin CMS -->
             {% for reward in rewards %}
-            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm dark:shadow-none hover:shadow-md transition-all duration-300" id="reward-{{ reward.id }}">
+            <div class="bg-[#111] border border-white/10 flex flex-col" id="reward-{{ reward.id }}">
                 {% if reward.image_url %}
-                <div class="w-full h-40 overflow-hidden">
-                    <img src="{{ reward.image_url }}" alt="{{ reward.name }}" class="w-full h-full object-cover">
+                <div class="w-full h-40 overflow-hidden border-b border-white/5">
+                    <img src="{{ reward.image_url }}" alt="{{ reward.name }}" class="w-full h-full object-cover opacity-60 mix-blend-screen grayscale">
                 </div>
                 {% endif %}
-                <div class="p-6 md:p-8">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-100 dark:border-blue-500/20 flex items-center justify-center text-2xl">
-                            🎁
-                        </div>
+                <div class="p-6 md:p-8 flex-1 flex flex-col">
+                    <div class="flex items-center gap-3 mb-4 border-b border-white/5 pb-4">
+                        <div class="text-2xl">🎁</div>
                         <div>
-                            <h3 class="font-display font-bold text-slate-900 dark:text-white text-lg">{{ reward.name }}</h3>
-                            <div class="flex items-center gap-1.5 text-xs mt-1">
-                                <span class="px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400 font-bold uppercase tracking-wider">{{ reward.token_cost }} tokens</span>
-                            </div>
+                            <h3 class="font-sans font-bold text-white text-lg">{{ reward.name }}</h3>
+                            <div class="text-[10px] text-blue-400 font-bold uppercase tracking-[0.2em] mt-1">{{ reward.token_cost }} tokens</div>
                         </div>
                     </div>
 
-                    <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6">
+                    <p class="text-slate-400 text-xs font-light leading-relaxed mb-6 flex-1">
                         {{ reward.description }}
                     </p>
 
                     <button type="button"
-                            class="w-full py-3.5 rounded-xl text-sm font-bold transition-all duration-200
+                            class="w-full py-3 text-xs font-bold uppercase tracking-[0.1em] transition-colors
                             {% if current_user.token_balance >= reward.token_cost %}
-                                bg-blue-600 text-white hover:bg-blue-700 shadow-md shadow-blue-600/20 dark:shadow-none
+                                bg-blue-600 text-white hover:bg-blue-500
                             {% else %}
-                                bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 cursor-not-allowed
+                                bg-[#0a0a0a] border border-white/10 text-slate-600 cursor-not-allowed
                             {% endif %}"
                             {% if current_user.token_balance < reward.token_cost %}disabled{% endif %}>
                         {% if current_user.token_balance >= reward.token_cost %}
-                            🔓 Redeem ({{ reward.token_cost }} Tokens)
+                            Redeem ({{ reward.token_cost }})
                         {% else %}
-                            🔒 Need {{ reward.token_cost - current_user.token_balance }} more tokens
+                            Locked (Need {{ reward.token_cost - current_user.token_balance }})
                         {% endif %}
                     </button>
                 </div>
@@ -242,48 +234,48 @@
         <!-- Recent Verifications -->
         {% set user_verifications = current_user.verifications %}
         {% if user_verifications %}
-        <div class="mt-10">
-            <h2 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-4">Your Submissions</h2>
-            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm dark:shadow-none transition-colors duration-200">
+        <div class="mt-12">
+            <h2 class="font-sans text-2xl font-bold text-white mb-6 border-b border-white/5 pb-4">Your Submissions</h2>
+            <div class="bg-[#111] border border-white/10 overflow-hidden">
                 <div class="overflow-x-auto">
-                    <table class="w-full text-sm" id="vault-submissions-table">
+                    <table class="w-full text-sm text-left" id="vault-submissions-table">
                         <thead>
-                            <tr class="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800 text-left">
-                                <th class="px-6 py-4 text-slate-600 dark:text-slate-400 font-bold uppercase tracking-wider text-xs">Tool</th>
-                                <th class="px-6 py-4 text-slate-600 dark:text-slate-400 font-bold uppercase tracking-wider text-xs">Order ID</th>
-                                <th class="px-6 py-4 text-slate-600 dark:text-slate-400 font-bold uppercase tracking-wider text-xs">Status</th>
-                                <th class="px-6 py-4 text-slate-600 dark:text-slate-400 font-bold uppercase tracking-wider text-xs">Submitted</th>
+                            <tr class="bg-[#0a0a0a] border-b border-white/5">
+                                <th class="px-6 py-4 text-slate-500 font-bold uppercase tracking-[0.1em] text-[10px]">Tool</th>
+                                <th class="px-6 py-4 text-slate-500 font-bold uppercase tracking-[0.1em] text-[10px]">Order ID</th>
+                                <th class="px-6 py-4 text-slate-500 font-bold uppercase tracking-[0.1em] text-[10px]">Status</th>
+                                <th class="px-6 py-4 text-slate-500 font-bold uppercase tracking-[0.1em] text-[10px]">Submitted</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for v in user_verifications %}
-                            <tr class="border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-                                <td class="px-6 py-4 text-slate-900 dark:text-white font-medium">{{ v.tool.icon_emoji }} {{ v.tool.name }}</td>
-                                <td class="px-6 py-4 text-slate-500 dark:text-slate-400 font-mono text-xs">{{ v.order_id }}</td>
+                            <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                <td class="px-6 py-4 text-white font-bold text-sm">{{ v.tool.icon_emoji }} {{ v.tool.name }}</td>
+                                <td class="px-6 py-4 text-slate-400 font-mono text-[10px] tracking-wider">{{ v.order_id }}</td>
                                 <td class="px-6 py-4">
                                     {% if v.status == 'approved' %}
-                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 text-xs font-bold uppercase tracking-wider border border-emerald-100 dark:border-emerald-500/20">
+                                        <span class="inline-flex items-center gap-1.5 text-emerald-500 text-[10px] font-bold uppercase tracking-[0.1em]">
                                             <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                                             Approved
                                         </span>
                                     {% elif v.status == 'holding' %}
-                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400 text-xs font-bold uppercase tracking-wider border border-blue-100 dark:border-blue-500/20">
+                                        <span class="inline-flex items-center gap-1.5 text-blue-400 text-[10px] font-bold uppercase tracking-[0.1em]">
                                             <span class="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
-                                            Holding ({{ v.holding_until.strftime('%b %d') if v.holding_until else 'N/A' }})
+                                            Holding
                                         </span>
                                     {% elif v.status == 'rejected' %}
-                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-50 dark:bg-red-500/10 text-red-700 dark:text-red-400 text-xs font-bold uppercase tracking-wider border border-red-100 dark:border-red-500/20">
+                                        <span class="inline-flex items-center gap-1.5 text-red-500 text-[10px] font-bold uppercase tracking-[0.1em]">
                                             <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
                                             Rejected
                                         </span>
                                     {% else %}
-                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400 text-xs font-bold uppercase tracking-wider border border-amber-100 dark:border-amber-500/20">
+                                        <span class="inline-flex items-center gap-1.5 text-amber-500 text-[10px] font-bold uppercase tracking-[0.1em]">
                                             <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
                                             Pending
                                         </span>
                                     {% endif %}
                                 </td>
-                                <td class="px-6 py-4 text-slate-500 dark:text-slate-400 text-xs">{{ v.submitted_at.strftime('%b %d, %Y %H:%M') }}</td>
+                                <td class="px-6 py-4 text-slate-500 text-xs font-mono">{{ v.submitted_at.strftime('%b %d, %Y') }}</td>
                             </tr>
                             {% endfor %}
                         </tbody>
