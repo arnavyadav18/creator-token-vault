@@ -20,6 +20,10 @@
                     <span class="text-amber-400 font-bold ml-1">{{ pending | length }}</span>
                 </div>
                 <div class="px-4 py-2 rounded-xl bg-slate-800 border border-slate-700 text-sm">
+                    <span class="text-slate-500">Holding:</span>
+                    <span class="text-blue-400 font-bold ml-1">{{ holding | length }}</span>
+                </div>
+                <div class="px-4 py-2 rounded-xl bg-slate-800 border border-slate-700 text-sm">
                     <span class="text-slate-500">Total:</span>
                     <span class="text-white font-bold ml-1">{{ all_verifications | length }}</span>
                 </div>
@@ -35,8 +39,9 @@
                 <div>
                     <h3 class="text-purple-300 font-display font-bold mb-1">Admin Workflow</h3>
                     <p class="text-slate-400 text-sm leading-relaxed">
-                        Approving a request confirms receipt data, <strong class="text-white">pushes tokens to the account dashboard</strong>, 
-                        and flags that subscription details/payout access must be <strong class="text-emerald-400">issued to the user's Gmail address within 24 hours</strong>.
+                        Verifying a receipt initiates a <strong class="text-white">14-day holding period</strong> to prevent refund abuse.
+                        After the hold clears, tokens are <strong class="text-emerald-400">automatically credited</strong> to the user's vault.
+                        Subscription details/payout access must be <strong class="text-emerald-400">issued to the user's Gmail address within 24 hours</strong> of verification.
                     </p>
                 </div>
             </div>
@@ -80,12 +85,12 @@
                                 <td class="px-6 py-4 text-slate-500 text-xs">{{ v.submitted_at.strftime('%b %d, %Y %H:%M') }}</td>
                                 <td class="px-6 py-4">
                                     <div class="flex items-center justify-end gap-2">
-                                        <form method="POST" action="{{ url_for('approve_verification', verification_id=v.id) }}" class="inline">
+                                        <form method="POST" action="{{ url_for('verify_receipt', verification_id=v.id) }}" class="inline">
                                             <button type="submit"
-                                                    class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold hover:bg-emerald-500/20 hover:border-emerald-500/50 transition-all duration-200"
-                                                    id="approve-btn-{{ v.id }}">
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
-                                                Approve
+                                                    class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-semibold hover:bg-blue-500/20 hover:border-blue-500/50 transition-all duration-200"
+                                                    id="verify-btn-{{ v.id }}">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+                                                Verify (Start 14-Day Hold)
                                             </button>
                                         </form>
                                         <form method="POST" action="{{ url_for('reject_verification', verification_id=v.id) }}" class="inline">
@@ -110,6 +115,57 @@
             <div class="text-4xl mb-4">✅</div>
             <h3 class="font-display text-xl font-bold text-white mb-2">Queue Clear</h3>
             <p class="text-slate-400 text-sm">No pending verifications to review at this time.</p>
+        </div>
+        {% endif %}
+
+        <!-- Holding Period Monitoring -->
+        {% if holding %}
+        <div class="mb-10">
+            <h2 class="font-display text-xl font-bold text-white mb-4 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+                In Holding Period (14-Day)
+            </h2>
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm" id="admin-holding-table">
+                        <thead>
+                            <tr class="border-b border-slate-800 text-left">
+                                <th class="px-6 py-4 text-slate-400 font-medium">ID</th>
+                                <th class="px-6 py-4 text-slate-400 font-medium">User</th>
+                                <th class="px-6 py-4 text-slate-400 font-medium">Email</th>
+                                <th class="px-6 py-4 text-slate-400 font-medium">Tool</th>
+                                <th class="px-6 py-4 text-slate-400 font-medium">Order ID</th>
+                                <th class="px-6 py-4 text-slate-400 font-medium">Reward</th>
+                                <th class="px-6 py-4 text-slate-400 font-medium">Clears On</th>
+                                <th class="px-6 py-4 text-slate-400 font-medium">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for v in holding %}
+                            <tr class="border-b border-slate-800/50 hover:bg-slate-800/30 transition-colors">
+                                <td class="px-6 py-4 text-slate-500 font-mono text-xs">#{{ v.id }}</td>
+                                <td class="px-6 py-4 text-white font-medium">{{ v.user.username }}</td>
+                                <td class="px-6 py-4 text-slate-300 text-xs">{{ v.user.email }}</td>
+                                <td class="px-6 py-4">
+                                    <span class="text-white">{{ v.tool.icon_emoji }} {{ v.tool.name }}</span>
+                                </td>
+                                <td class="px-6 py-4 text-slate-300 font-mono text-xs">{{ v.order_id }}</td>
+                                <td class="px-6 py-4">
+                                    <span class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-semibold">+{{ v.tool.token_reward }}</span>
+                                </td>
+                                <td class="px-6 py-4 text-blue-300 text-xs font-semibold">{{ v.holding_until.strftime('%b %d, %Y %H:%M') }}</td>
+                                <td class="px-6 py-4">
+                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-semibold">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span>
+                                        Holding
+                                    </span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
         {% endif %}
 
@@ -143,6 +199,11 @@
                                             <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                                             Approved
                                         </span>
+                                    {% elif v.status == 'holding' %}
+                                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-semibold">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span>
+                                            Holding ({{ v.holding_until.strftime('%b %d') if v.holding_until else 'N/A' }})
+                                        </span>
                                     {% elif v.status == 'rejected' %}
                                         <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-red-500/10 text-red-400 text-xs font-semibold">
                                             <span class="w-1.5 h-1.5 rounded-full bg-red-400"></span>
@@ -164,6 +225,150 @@
             </div>
         </div>
         {% endif %}
+
+        <!-- Manage Vault Rewards -->
+        <div class="mt-10 mb-10">
+            <h2 class="font-display text-xl font-bold text-white mb-4 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                Manage Vault Rewards
+            </h2>
+
+            <!-- Add Reward Form -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 mb-6">
+                <h3 class="text-white font-display font-bold mb-4">Add New Reward</h3>
+                <form method="POST" action="{{ url_for('add_reward') }}" class="space-y-4" id="add-reward-form">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-1">Name</label>
+                            <input type="text" name="name" required
+                                   class="w-full px-4 py-2.5 rounded-xl bg-slate-800/60 border border-slate-700 text-white placeholder-slate-500 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:outline-none text-sm"
+                                   placeholder="e.g. Premium LUT Pack">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-1">Token Cost</label>
+                            <input type="number" name="token_cost" required min="1"
+                                   class="w-full px-4 py-2.5 rounded-xl bg-slate-800/60 border border-slate-700 text-white placeholder-slate-500 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:outline-none text-sm"
+                                   placeholder="e.g. 50">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-1">Image URL (optional)</label>
+                        <input type="url" name="image_url"
+                               class="w-full px-4 py-2.5 rounded-xl bg-slate-800/60 border border-slate-700 text-white placeholder-slate-500 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:outline-none text-sm"
+                               placeholder="https://example.com/banner.jpg">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-1">Description</label>
+                        <textarea name="description" required rows="2"
+                                  class="w-full px-4 py-2.5 rounded-xl bg-slate-800/60 border border-slate-700 text-white placeholder-slate-500 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:outline-none text-sm resize-none"
+                                  placeholder="Describe the reward..."></textarea>
+                    </div>
+                    <button type="submit"
+                            class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 text-white text-sm font-semibold hover:from-emerald-400 hover:to-emerald-500 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 transition-all duration-200">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+                        Add Reward
+                    </button>
+                </form>
+            </div>
+
+            <!-- Existing Rewards Table -->
+            {% if rewards %}
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm" id="admin-rewards-table">
+                        <thead>
+                            <tr class="border-b border-slate-800 text-left">
+                                <th class="px-6 py-4 text-slate-400 font-medium">ID</th>
+                                <th class="px-6 py-4 text-slate-400 font-medium">Name</th>
+                                <th class="px-6 py-4 text-slate-400 font-medium">Description</th>
+                                <th class="px-6 py-4 text-slate-400 font-medium">Cost</th>
+                                <th class="px-6 py-4 text-slate-400 font-medium text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for reward in rewards %}
+                            <tr class="border-b border-slate-800/50 hover:bg-slate-800/30 transition-colors">
+                                <td class="px-6 py-4 text-slate-500 font-mono text-xs">#{{ reward.id }}</td>
+                                <td class="px-6 py-4 text-white font-medium">{{ reward.name }}</td>
+                                <td class="px-6 py-4 text-slate-400 text-xs max-w-xs truncate">{{ reward.description }}</td>
+                                <td class="px-6 py-4">
+                                    <span class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-semibold">{{ reward.token_cost }} tokens</span>
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <form method="POST" action="{{ url_for('delete_reward', reward_id=reward.id) }}" class="inline">
+                                        <button type="submit"
+                                                class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-semibold hover:bg-red-500/20 hover:border-red-500/50 transition-all duration-200">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"/></svg>
+                                            Delete
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% else %}
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8 text-center">
+                <div class="text-3xl mb-3">🎁</div>
+                <p class="text-slate-400 text-sm">No rewards created yet. Add one above to populate the Vault exchange.</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Manage User Tokens -->
+        <div class="mt-10">
+            <h2 class="font-display text-xl font-bold text-white mb-4 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-purple-400"></span>
+                Manage User Tokens
+            </h2>
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm" id="admin-users-table">
+                        <thead>
+                            <tr class="border-b border-slate-800 text-left">
+                                <th class="px-6 py-4 text-slate-400 font-medium">ID</th>
+                                <th class="px-6 py-4 text-slate-400 font-medium">Username</th>
+                                <th class="px-6 py-4 text-slate-400 font-medium">Email</th>
+                                <th class="px-6 py-4 text-slate-400 font-medium">Balance</th>
+                                <th class="px-6 py-4 text-slate-400 font-medium">Admin</th>
+                                <th class="px-6 py-4 text-slate-400 font-medium text-right">Update Tokens</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in users %}
+                            <tr class="border-b border-slate-800/50 hover:bg-slate-800/30 transition-colors">
+                                <td class="px-6 py-4 text-slate-500 font-mono text-xs">#{{ user.id }}</td>
+                                <td class="px-6 py-4 text-white font-medium">{{ user.username }}</td>
+                                <td class="px-6 py-4 text-slate-300 text-xs">{{ user.email }}</td>
+                                <td class="px-6 py-4">
+                                    <span class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-semibold">{{ user.token_balance }} tokens</span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    {% if user.is_admin %}
+                                        <span class="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 text-xs font-semibold">Admin</span>
+                                    {% else %}
+                                        <span class="text-slate-500 text-xs">User</span>
+                                    {% endif %}
+                                </td>
+                                <td class="px-6 py-4">
+                                    <form method="POST" action="{{ url_for('update_user_tokens', user_id=user.id) }}" class="flex items-center justify-end gap-2">
+                                        <input type="number" name="new_balance" value="{{ user.token_balance }}" min="0"
+                                               class="w-24 px-3 py-1.5 rounded-lg bg-slate-800/60 border border-slate-700 text-white text-xs text-center focus:border-purple-500 focus:ring-1 focus:ring-purple-500 focus:outline-none">
+                                        <button type="submit"
+                                                class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/30 text-purple-400 text-xs font-semibold hover:bg-purple-500/20 hover:border-purple-500/50 transition-all duration-200">
+                                            Update
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

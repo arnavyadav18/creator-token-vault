@@ -1,11 +1,11 @@
 import os
 import secrets
 import string
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from flask import (
     Flask, render_template, redirect, url_for, request,
-    flash, jsonify, abort
+    flash, jsonify, abort, session
 )
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import (
@@ -51,6 +51,8 @@ class User(UserMixin, db.Model):
     access_key = db.Column(db.String(32), nullable=True, unique=True)
     unlocked_assets = db.Column(db.Boolean, default=False)
     is_admin = db.Column(db.Boolean, default=False)
+    referral_code = db.Column(db.String(10), unique=True, nullable=True)
+    referred_by_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -80,9 +82,20 @@ class Verification(db.Model):
     order_id = db.Column(db.String(120), nullable=False)
     status = db.Column(db.String(20), default='pending')
     submitted_at = db.Column(db.DateTime, default=datetime.utcnow)
+    holding_until = db.Column(db.DateTime, nullable=True)
 
     user = db.relationship('User', backref=db.backref('verifications', lazy=True))
     tool = db.relationship('Tool', backref=db.backref('verifications', lazy=True))
+
+
+class Reward(db.Model):
+    __tablename__ = 'rewards'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    image_url = db.Column(db.String(500), nullable=True)
+    token_cost = db.Column(db.Integer, nullable=False)
 
 # ---------------------------------------------------------------------------
 # Flask-Login User Loader
@@ -152,13 +165,47 @@ def seed_tools():
         db.session.commit()
 
 # ---------------------------------------------------------------------------
+# Auto-Clear Holding Period (Lazy Evaluation)
+# ---------------------------------------------------------------------------
+
+@app.before_request
+def auto_clear_holdings():
+    """Check and auto-approve verifications whose 14-day hold has expired."""
+    cleared = Verification.query.filter(
+        Verification.status == 'holding',
+        Verification.holding_until <= datetime.utcnow()
+    ).all()
+    for v in cleared:
+        v.status = 'approved'
+        tool = Tool.query.get(v.tool_id)
+        user = User.query.get(v.user_id)
+        if tool and user:
+            user.token_balance += tool.token_reward
+    if cleared:
+        db.session.commit()
+
+# ---------------------------------------------------------------------------
 # Routes
 # ---------------------------------------------------------------------------
+
+@app.route('/ping')
+def keep_alive():
+    return "Server is awake", 200
+
 
 @app.route('/')
 def index():
     tools = Tool.query.all()
     return render_template('index.html', tools=tools)
+
+
+@app.route('/ref/<code>')
+def referral(code):
+    """Save referral code in session and redirect to registration."""
+    referrer = User.query.filter_by(referral_code=code).first()
+    if referrer:
+        session['referred_by_code'] = code
+    return redirect(url_for('register'))
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -195,8 +242,24 @@ def register():
         admin_password = os.environ.get('ADMIN_PASSWORD', '')
         is_admin = (password == admin_password and admin_password != '')
 
-        user = User(username=username, email=email, is_admin=is_admin)
+        # Generate unique 8-character referral code
+        charset = string.ascii_letters + string.digits
+        while True:
+            ref_code = ''.join(secrets.choice(charset) for _ in range(8))
+            if not User.query.filter_by(referral_code=ref_code).first():
+                break
+
+        user = User(username=username, email=email, is_admin=is_admin, referral_code=ref_code)
         user.set_password(password)
+
+        # Process referral bonus
+        referred_by_code = session.pop('referred_by_code', None)
+        if referred_by_code:
+            referrer = User.query.filter_by(referral_code=referred_by_code).first()
+            if referrer:
+                user.referred_by_id = referrer.id
+                referrer.token_balance += 20
+
         db.session.add(user)
         db.session.commit()
 
@@ -278,7 +341,11 @@ def verify():
 @app.route('/vault')
 @login_required
 def vault():
-    return render_template('vault.html')
+    holding_verifications = Verification.query.filter_by(
+        user_id=current_user.id, status='holding'
+    ).all()
+    rewards = Reward.query.all()
+    return render_template('vault.html', holding_verifications=holding_verifications, rewards=rewards)
 
 
 @app.route('/vault/redeem/key', methods=['POST'])
@@ -334,30 +401,33 @@ def admin():
         Verification.submitted_at.desc()
     ).all()
 
+    holding = Verification.query.filter_by(status='holding').order_by(
+        Verification.holding_until.asc()
+    ).all()
+
     all_verifications = Verification.query.order_by(
         Verification.submitted_at.desc()
     ).all()
 
-    return render_template('admin.html', pending=pending, all_verifications=all_verifications)
+    users = User.query.all()
+    rewards = Reward.query.all()
+
+    return render_template('admin.html', pending=pending, holding=holding,
+                           all_verifications=all_verifications, users=users, rewards=rewards)
 
 
-@app.route('/admin/approve/<int:verification_id>', methods=['POST'])
+@app.route('/admin/verify/<int:verification_id>', methods=['POST'])
 @login_required
-def approve_verification(verification_id):
+def verify_receipt(verification_id):
     if not current_user.is_admin:
         abort(403)
 
     verification = Verification.query.get_or_404(verification_id)
-    verification.status = 'approved'
-
-    tool = Tool.query.get(verification.tool_id)
-    user = User.query.get(verification.user_id)
-
-    if tool and user:
-        user.token_balance += tool.token_reward
+    verification.status = 'holding'
+    verification.holding_until = datetime.utcnow() + timedelta(days=14)
 
     db.session.commit()
-    flash(f'Verification #{verification_id} approved. {tool.token_reward} tokens credited.', 'success')
+    flash(f'Receipt verified! 14-day holding period initiated for verification #{verification_id}.', 'success')
     return redirect(url_for('admin'))
 
 
@@ -372,6 +442,63 @@ def reject_verification(verification_id):
     db.session.commit()
 
     flash(f'Verification #{verification_id} rejected.', 'error')
+    return redirect(url_for('admin'))
+
+
+@app.route('/admin/reward/add', methods=['POST'])
+@login_required
+def add_reward():
+    if not current_user.is_admin:
+        abort(403)
+
+    name = request.form.get('name', '').strip()
+    description = request.form.get('description', '').strip()
+    image_url = request.form.get('image_url', '').strip() or None
+    token_cost = request.form.get('token_cost', type=int)
+
+    if not name or not description or not token_cost:
+        flash('Name, description, and token cost are required.', 'error')
+        return redirect(url_for('admin'))
+
+    reward = Reward(name=name, description=description, image_url=image_url, token_cost=token_cost)
+    db.session.add(reward)
+    db.session.commit()
+
+    flash(f'Reward "{name}" added successfully.', 'success')
+    return redirect(url_for('admin'))
+
+
+@app.route('/admin/reward/delete/<int:reward_id>', methods=['POST'])
+@login_required
+def delete_reward(reward_id):
+    if not current_user.is_admin:
+        abort(403)
+
+    reward = Reward.query.get_or_404(reward_id)
+    db.session.delete(reward)
+    db.session.commit()
+
+    flash(f'Reward "{reward.name}" deleted.', 'success')
+    return redirect(url_for('admin'))
+
+
+@app.route('/admin/user/<int:user_id>/update_tokens', methods=['POST'])
+@login_required
+def update_user_tokens(user_id):
+    if not current_user.is_admin:
+        abort(403)
+
+    user = User.query.get_or_404(user_id)
+    new_balance = request.form.get('new_balance', type=int)
+
+    if new_balance is None:
+        flash('Invalid token balance.', 'error')
+        return redirect(url_for('admin'))
+
+    user.token_balance = new_balance
+    db.session.commit()
+
+    flash(f'Token balance for {user.username} updated to {new_balance}.', 'success')
     return redirect(url_for('admin'))
 
 
