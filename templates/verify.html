@@ -2,84 +2,84 @@
 {% block title %}Verify Purchase — Creator Token Vault{% endblock %}
 
 {% block content %}
-<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 transition-colors duration-200">
     <div class="animate-slide-up">
         <!-- Header -->
         <div class="text-center mb-10">
-            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-blue-50 text-blue-600 text-2xl shadow-sm border border-blue-100 mb-4">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 text-2xl shadow-sm dark:shadow-none border border-blue-100 dark:border-blue-500/20 mb-4 transition-colors duration-200">
                 🧾
             </div>
-            <h1 class="font-display text-3xl font-bold text-slate-900 mb-2">Verify Your Purchase</h1>
-            <p class="text-slate-500 text-sm">Submit your order receipt to earn tokens</p>
+            <h1 class="font-display text-3xl font-bold text-slate-900 dark:text-white mb-2">Verify Your Purchase</h1>
+            <p class="text-slate-500 dark:text-slate-400 text-sm">Submit your order receipt to earn tokens</p>
         </div>
 
         <!-- Notice Callout -->
-        <div class="mb-8 bg-amber-50 border border-amber-200 rounded-2xl p-6 shadow-sm" id="verify-notice">
+        <div class="mb-8 bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 rounded-2xl p-6 shadow-sm dark:shadow-none transition-colors duration-200" id="verify-notice">
             <div class="flex items-start gap-4">
                 <div class="shrink-0 text-3xl">🔔</div>
                 <div>
-                    <h3 class="text-amber-800 font-display font-bold text-lg mb-2">NOTICE</h3>
-                    <p class="text-amber-700 text-sm leading-relaxed">
-                        To prevent refund abuse, approved receipts undergo a <strong class="text-amber-900">14-day holding period</strong>. 
-                        Upon clicking <strong class="text-amber-900">"Submit for Review"</strong>, your request is sent directly to the 
-                        <strong class="text-amber-900">Admin Panel</strong>. Your tokens will <strong class="text-blue-700">automatically appear in your vault</strong> once the holding period clears.
+                    <h3 class="text-amber-800 dark:text-amber-400 font-display font-bold text-lg mb-2">NOTICE</h3>
+                    <p class="text-amber-700 dark:text-amber-500/80 text-sm leading-relaxed">
+                        To prevent refund abuse, approved receipts undergo a <strong class="text-amber-900 dark:text-amber-300">14-day holding period</strong>. 
+                        Upon clicking <strong class="text-amber-900 dark:text-amber-300">"Submit for Review"</strong>, your request is sent directly to the 
+                        <strong class="text-amber-900 dark:text-amber-300">Admin Panel</strong>. Your tokens will <strong class="text-blue-700 dark:text-blue-400">automatically appear in your vault</strong> once the holding period clears.
                     </p>
                 </div>
             </div>
         </div>
 
         <!-- Verification Form Card -->
-        <div class="bg-white border border-slate-200 rounded-3xl p-8 shadow-sm">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 shadow-sm dark:shadow-none transition-colors duration-200">
             <form method="POST" action="{{ url_for('verify') }}" class="space-y-6" id="verify-form">
                 <!-- Tool Selection -->
                 <div>
-                    <label for="tool_id" class="block text-sm font-semibold text-slate-700 mb-2">
+                    <label for="tool_id" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                         Select the Tool You Purchased
                     </label>
                     <div class="relative">
                         <select name="tool_id" id="tool_id" required
-                                class="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-colors text-sm font-medium appearance-none cursor-pointer">
+                                class="w-full px-4 py-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:bg-white dark:focus:bg-slate-800 focus:border-blue-500 dark:focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-500/20 focus:outline-none transition-colors text-sm font-medium appearance-none cursor-pointer">
                             <option value="" disabled selected class="text-slate-500">— Choose a tool —</option>
                             {% for tool in tools %}
                                 <option value="{{ tool.id }}">{{ tool.icon_emoji }} {{ tool.name }} — {{ tool.category }} (+{{ tool.token_reward }} tokens)</option>
                             {% endfor %}
                         </select>
                         <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
-                            <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"/></svg>
+                            <svg class="w-5 h-5 text-slate-400 dark:text-slate-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"/></svg>
                         </div>
                     </div>
                 </div>
 
                 <!-- Order / Receipt ID -->
                 <div>
-                    <label for="order_id" class="block text-sm font-semibold text-slate-700 mb-2">
+                    <label for="order_id" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                         Order ID / Receipt Number
                     </label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 7.5h-.75A2.25 2.25 0 004.5 9.75v7.5a2.25 2.25 0 002.25 2.25h7.5a2.25 2.25 0 002.25-2.25v-7.5a2.25 2.25 0 00-2.25-2.25h-.75m0-3l-3-3m0 0l-3 3m3-3v11.25m6-2.25h.75a2.25 2.25 0 012.25 2.25v7.5a2.25 2.25 0 01-2.25 2.25h-7.5a2.25 2.25 0 01-2.25-2.25v-.75"/></svg>
+                            <svg class="w-5 h-5 text-slate-400 dark:text-slate-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 7.5h-.75A2.25 2.25 0 004.5 9.75v7.5a2.25 2.25 0 002.25 2.25h7.5a2.25 2.25 0 002.25-2.25v-7.5a2.25 2.25 0 00-2.25-2.25h-.75m0-3l-3-3m0 0l-3 3m3-3v11.25m6-2.25h.75a2.25 2.25 0 012.25 2.25v7.5a2.25 2.25 0 01-2.25 2.25h-7.5a2.25 2.25 0 01-2.25-2.25v-.75"/></svg>
                         </div>
                         <input type="text" name="order_id" id="order_id" required
                                pattern="[A-Za-z0-9\-_]+"
-                               class="w-full pl-12 pr-4 py-3.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-colors text-sm font-mono font-medium"
+                               class="w-full pl-12 pr-4 py-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:bg-white dark:focus:bg-slate-800 focus:border-blue-500 dark:focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-500/20 focus:outline-none transition-colors text-sm font-mono font-medium"
                                placeholder="e.g. ORD-12345-ABCDE">
                     </div>
-                    <p class="mt-2 text-xs text-slate-500">Enter the alphanumeric order or receipt ID from your purchase confirmation email.</p>
+                    <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">Enter the alphanumeric order or receipt ID from your purchase confirmation email.</p>
                 </div>
 
                 <!-- Info Summary -->
-                <div class="bg-blue-50 rounded-xl p-4 border border-blue-100">
+                <div class="bg-blue-50 dark:bg-blue-500/10 rounded-xl p-4 border border-blue-100 dark:border-blue-500/20 transition-colors duration-200">
                     <div class="flex items-center gap-3 text-sm">
-                        <svg class="w-5 h-5 text-blue-600 shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"/></svg>
-                        <span class="text-blue-800">
-                            Your submission will be reviewed by an admin. Once approved, tokens are <span class="text-blue-700 font-bold">instantly credited</span> to your vault.
+                        <svg class="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"/></svg>
+                        <span class="text-blue-800 dark:text-blue-200">
+                            Your submission will be reviewed by an admin. Once approved, tokens are <span class="text-blue-700 dark:text-blue-400 font-bold">instantly credited</span> to your vault.
                         </span>
                     </div>
                 </div>
 
                 <!-- Submit -->
                 <button type="submit" id="verify-submit"
-                        class="w-full py-3.5 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700 shadow-md shadow-blue-600/20 transition-all duration-200 text-sm flex items-center justify-center gap-2">
+                        class="w-full py-3.5 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700 shadow-md shadow-blue-600/20 dark:shadow-none transition-all duration-200 text-sm flex items-center justify-center gap-2">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     Submit for Review
                 </button>
@@ -88,7 +88,7 @@
 
         <!-- Back Link -->
         <div class="mt-6 text-center">
-            <a href="{{ url_for('index') }}" class="text-slate-500 hover:text-slate-900 text-sm font-semibold transition-colors inline-flex items-center gap-1" id="verify-back">
+            <a href="{{ url_for('index') }}" class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white text-sm font-semibold transition-colors inline-flex items-center gap-1" id="verify-back">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/></svg>
                 Back to Tools
             </a>
