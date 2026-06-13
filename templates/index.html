@@ -106,9 +106,16 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {% for tool in tools %}
             <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-xl transition-all duration-300 flex flex-col group">
-                <!-- Thumbnail placeholder -->
+                <!-- Thumbnail placeholder or custom image -->
                 <div class="relative h-48 w-full bg-slate-900 overflow-hidden">
-                    <img src="https://picsum.photos/seed/tool{{ tool.id }}/800/400" alt="{{ tool.name }}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
+                    {% if 'Runway' in tool.name %}
+                        <img src="{{ url_for('static', filename='img/runway.jpg') }}" alt="{{ tool.name }}" 
+                             class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                             onerror="this.src='https://picsum.photos/seed/tool{{ tool.id }}/800/400'">
+                    {% else %}
+                        <img src="https://picsum.photos/seed/tool{{ tool.id }}/800/400" alt="{{ tool.name }}" 
+                             class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
+                    {% endif %}
                     <div class="absolute top-4 right-4 bg-blue-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg border border-blue-500/50">
                         +{{ tool.token_reward }} Tokens
                     </div>
