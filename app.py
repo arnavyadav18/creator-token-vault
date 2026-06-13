@@ -518,11 +518,31 @@ def verify_extension_key():
     return jsonify({'status': 'invalid', 'message': 'Key not found'}), 404
 
 # ---------------------------------------------------------------------------
-# App Entry Point
+# App Entry Point & Auto-Migrations
 # ---------------------------------------------------------------------------
 
 with app.app_context():
     db.create_all()
+    
+    # Auto-migrate new columns for existing Render databases
+    try:
+        db.session.execute(db.text("ALTER TABLE users ADD COLUMN referral_code VARCHAR(10) UNIQUE"))
+        db.session.commit()
+    except Exception:
+        db.session.rollback()
+
+    try:
+        db.session.execute(db.text("ALTER TABLE users ADD COLUMN referred_by_id INTEGER"))
+        db.session.commit()
+    except Exception:
+        db.session.rollback()
+        
+    try:
+        db.session.execute(db.text("ALTER TABLE verifications ADD COLUMN holding_until TIMESTAMP"))
+        db.session.commit()
+    except Exception:
+        db.session.rollback()
+        
     seed_tools()
 
 if __name__ == '__main__':
