@@ -7,10 +7,10 @@
         <!-- Header -->
         <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-10 gap-4">
             <div>
-                <h1 class="font-display text-3xl md:text-4xl font-bold text-white mb-2">Your Vault</h1>
-                <p class="text-slate-400 text-sm">Manage your tokens and unlock exclusive rewards</p>
+                <h1 class="font-display text-3xl md:text-4xl font-bold text-slate-900 mb-2">Your Vault</h1>
+                <p class="text-slate-500 text-sm">Manage your tokens and unlock exclusive rewards</p>
             </div>
-            <a href="{{ url_for('verify') }}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-sm font-semibold hover:bg-emerald-500/20 transition-all" id="vault-verify-link">
+            <a href="{{ url_for('verify') }}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-50 border border-blue-100 text-blue-700 text-sm font-semibold hover:bg-blue-100 transition-all" id="vault-verify-link">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
                 Submit New Verification
             </a>
@@ -18,27 +18,24 @@
 
         <!-- Token Balance Card -->
         <div class="mb-10 animate-slide-up">
-            <div class="relative bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden animate-glow-pulse">
-                <!-- Decorative gradient -->
-                <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-purple-500/5 pointer-events-none"></div>
-
+            <div class="relative bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                 <div class="relative p-8 md:p-10">
                     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                         <div>
-                            <p class="text-slate-400 text-sm font-medium uppercase tracking-wider mb-1">Token Balance</p>
+                            <p class="text-slate-400 text-sm font-bold uppercase tracking-wider mb-1">Token Balance</p>
                             <div class="flex items-baseline gap-3">
-                                <span class="font-display text-6xl md:text-7xl font-extrabold gradient-text" id="vault-balance">
+                                <span class="font-display text-6xl md:text-7xl font-extrabold text-blue-600" id="vault-balance">
                                     {{ current_user.token_balance }}
                                 </span>
-                                <span class="text-slate-500 text-lg font-medium">tokens</span>
+                                <span class="text-slate-400 text-lg font-medium">tokens</span>
                             </div>
                         </div>
                         <div class="flex items-center gap-3 text-sm">
-                            <div class="px-4 py-2 rounded-xl bg-slate-800 border border-slate-700 text-slate-300">
-                                <span class="text-slate-500">Username:</span> <span class="text-white font-semibold">{{ current_user.username }}</span>
+                            <div class="px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-100 text-slate-500">
+                                <span class="text-slate-400">Username:</span> <span class="text-slate-800 font-semibold">{{ current_user.username }}</span>
                             </div>
-                            <div class="px-4 py-2 rounded-xl bg-slate-800 border border-slate-700 text-slate-300">
-                                <span class="text-slate-500">Email:</span> <span class="text-white font-semibold">{{ current_user.email }}</span>
+                            <div class="px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-100 text-slate-500">
+                                <span class="text-slate-400">Email:</span> <span class="text-slate-800 font-semibold">{{ current_user.email }}</span>
                             </div>
                         </div>
                     </div>
@@ -49,30 +46,30 @@
         <!-- Holding Tokens Section -->
         {% if holding_verifications %}
         <div class="mb-10 animate-slide-up">
-            <div class="bg-amber-500/5 border border-amber-500/20 rounded-2xl p-6">
+            <div class="bg-amber-50 border border-amber-100 rounded-2xl p-6 shadow-sm">
                 <div class="flex items-center gap-3 mb-4">
-                    <div class="w-10 h-10 rounded-xl bg-amber-500/15 flex items-center justify-center text-xl">⏳</div>
+                    <div class="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center text-xl">⏳</div>
                     <div>
-                        <h3 class="font-display font-bold text-amber-300 text-lg">Pending / Holding Tokens</h3>
-                        <p class="text-slate-400 text-xs">These tokens are in a 14-day holding period and will be auto-credited upon clearance.</p>
+                        <h3 class="font-display font-bold text-amber-800 text-lg">Pending / Holding Tokens</h3>
+                        <p class="text-amber-600 text-xs">These tokens are in a 14-day holding period and will be auto-credited upon clearance.</p>
                     </div>
                 </div>
                 <div class="space-y-3">
                     {% for v in holding_verifications %}
-                    <div class="flex items-center justify-between bg-slate-900/60 rounded-xl px-5 py-3 border border-slate-800">
+                    <div class="flex items-center justify-between bg-white rounded-xl px-5 py-3 border border-amber-100 shadow-sm">
                         <div class="flex items-center gap-3">
                             <span class="text-lg">{{ v.tool.icon_emoji }}</span>
                             <div>
-                                <p class="text-white text-sm font-medium">{{ v.tool.name }}</p>
-                                <p class="text-slate-500 text-xs font-mono">{{ v.order_id }}</p>
+                                <p class="text-slate-800 text-sm font-medium">{{ v.tool.name }}</p>
+                                <p class="text-slate-400 text-xs font-mono">{{ v.order_id }}</p>
                             </div>
                         </div>
                         <div class="text-right">
-                            <div class="flex items-center gap-1.5 text-amber-400 text-sm font-semibold">
-                                <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                            <div class="flex items-center gap-1.5 text-amber-600 text-sm font-semibold">
+                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
                                 +{{ v.tool.token_reward }} tokens
                             </div>
-                            <p class="text-slate-500 text-xs mt-0.5">Clears {{ v.holding_until.strftime('%b %d, %Y') }}</p>
+                            <p class="text-slate-400 text-xs mt-0.5">Clears {{ v.holding_until.strftime('%b %d, %Y') }}</p>
                         </div>
                     </div>
                     {% endfor %}
@@ -84,61 +81,61 @@
         <!-- Referral Section -->
         {% if current_user.referral_code %}
         <div class="mb-10">
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
                 <div class="flex items-center gap-3 mb-3">
-                    <div class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center text-xl">🤝</div>
+                    <div class="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center text-xl">🤝</div>
                     <div>
-                        <h3 class="font-display font-bold text-white text-lg">Referral Program</h3>
-                        <p class="text-slate-400 text-xs">Earn 20 bonus tokens for every friend who signs up using your link!</p>
+                        <h3 class="font-display font-bold text-slate-900 text-lg">Referral Program</h3>
+                        <p class="text-slate-500 text-xs">Earn 20 bonus tokens for every friend who signs up using your link!</p>
                     </div>
                 </div>
-                <div class="bg-slate-800/60 rounded-xl p-4 border border-slate-700/50">
-                    <p class="text-xs text-purple-400 font-medium uppercase tracking-wider mb-2">Your Referral Link</p>
-                    <code class="block text-purple-300 font-mono text-sm font-bold break-all" id="referral-link">{{ request.host_url }}ref/{{ current_user.referral_code }}</code>
+                <div class="bg-slate-50 rounded-xl p-4 border border-slate-100">
+                    <p class="text-xs text-purple-600 font-bold uppercase tracking-wider mb-2">Your Referral Link</p>
+                    <code class="block text-slate-700 font-mono text-sm font-medium break-all" id="referral-link">{{ request.host_url }}ref/{{ current_user.referral_code }}</code>
                 </div>
             </div>
         </div>
         {% endif %}
 
         <!-- Reward Panels -->
-        <h2 class="font-display text-xl font-bold text-white mb-6">Redeem Rewards</h2>
+        <h2 class="font-display text-xl font-bold text-slate-900 mb-6">Redeem Rewards</h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- Chrome Extension Key Panel -->
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8 shine-hover transition-all duration-300 hover:border-emerald-500/30" id="reward-extension-key">
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-md transition-all duration-300" id="reward-extension-key">
                 <div class="flex items-center gap-3 mb-4">
-                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-2xl">
+                    <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center text-2xl border border-blue-100">
                         🔑
                     </div>
                     <div>
-                        <h3 class="font-display font-bold text-white text-lg">Chrome Extension Key</h3>
-                        <div class="flex items-center gap-1.5 text-xs">
-                            <span class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 font-semibold">100 tokens</span>
+                        <h3 class="font-display font-bold text-slate-900 text-lg">Chrome Extension Key</h3>
+                        <div class="flex items-center gap-1.5 text-xs mt-1">
+                            <span class="px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 font-bold uppercase tracking-wider">100 tokens</span>
                         </div>
                     </div>
                 </div>
 
-                <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                <p class="text-slate-500 text-sm leading-relaxed mb-6">
                     Generate a unique 16-character access key for the Creator Token Vault Chrome extension. One key per account.
                 </p>
 
                 {% if current_user.access_key %}
-                    <div class="bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4 mb-4">
-                        <p class="text-xs text-emerald-400 font-medium uppercase tracking-wider mb-2">Your Extension Key</p>
-                        <code class="block text-emerald-300 font-mono text-lg font-bold tracking-widest" id="extension-key-value">{{ current_user.access_key }}</code>
+                    <div class="bg-emerald-50 border border-emerald-100 rounded-xl p-4 mb-4">
+                        <p class="text-xs text-emerald-700 font-bold uppercase tracking-wider mb-2">Your Extension Key</p>
+                        <code class="block text-emerald-800 font-mono text-lg font-bold tracking-widest" id="extension-key-value">{{ current_user.access_key }}</code>
                     </div>
-                    <div class="flex items-center gap-2 text-sm text-emerald-400">
+                    <div class="flex items-center gap-2 text-sm text-emerald-600">
                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                        <span class="font-medium">Redeemed</span>
+                        <span class="font-bold">Redeemed</span>
                     </div>
                 {% else %}
                     <form method="POST" action="{{ url_for('redeem_key') }}">
                         <button type="submit" id="redeem-key-btn"
-                                class="w-full py-3 rounded-xl text-sm font-semibold transition-all duration-200
+                                class="w-full py-3.5 rounded-xl text-sm font-bold transition-all duration-200
                                 {% if current_user.token_balance >= 100 %}
-                                    bg-gradient-to-r from-emerald-500 to-emerald-600 text-white hover:from-emerald-400 hover:to-emerald-500 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40
+                                    bg-blue-600 text-white hover:bg-blue-700 shadow-md shadow-blue-600/20
                                 {% else %}
-                                    bg-slate-800 text-slate-500 cursor-not-allowed border border-slate-700
+                                    bg-slate-100 text-slate-400 cursor-not-allowed
                                 {% endif %}"
                                 {% if current_user.token_balance < 100 %}disabled{% endif %}>
                             {% if current_user.token_balance >= 100 %}
@@ -152,40 +149,40 @@
             </div>
 
             <!-- Cinematic Asset Pack Panel -->
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8 shine-hover transition-all duration-300 hover:border-purple-500/30" id="reward-asset-pack">
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-md transition-all duration-300" id="reward-asset-pack">
                 <div class="flex items-center gap-3 mb-4">
-                    <div class="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center text-2xl">
+                    <div class="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center text-2xl border border-purple-100">
                         🎬
                     </div>
                     <div>
-                        <h3 class="font-display font-bold text-white text-lg">Cinematic Video Asset Pack</h3>
-                        <div class="flex items-center gap-1.5 text-xs">
-                            <span class="px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-400 font-semibold">50 tokens</span>
+                        <h3 class="font-display font-bold text-slate-900 text-lg">Cinematic Video Asset Pack</h3>
+                        <div class="flex items-center gap-1.5 text-xs mt-1">
+                            <span class="px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 font-bold uppercase tracking-wider">50 tokens</span>
                         </div>
                     </div>
                 </div>
 
-                <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                <p class="text-slate-500 text-sm leading-relaxed mb-6">
                     Unlock a curated collection of premium cinematic video assets, overlays, transitions, and LUTs for your creator workflow.
                 </p>
 
                 {% if current_user.unlocked_assets %}
-                    <div class="bg-purple-500/5 border border-purple-500/20 rounded-xl p-4 mb-4">
-                        <p class="text-xs text-purple-400 font-medium uppercase tracking-wider mb-1">Status</p>
-                        <p class="text-purple-300 font-semibold">Asset Pack Unlocked — Check your email for download link</p>
+                    <div class="bg-purple-50 border border-purple-100 rounded-xl p-4 mb-4">
+                        <p class="text-xs text-purple-700 font-bold uppercase tracking-wider mb-1">Status</p>
+                        <p class="text-purple-800 font-semibold text-sm">Asset Pack Unlocked — Check your email</p>
                     </div>
-                    <div class="flex items-center gap-2 text-sm text-purple-400">
+                    <div class="flex items-center gap-2 text-sm text-purple-600">
                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                        <span class="font-medium">Unlocked</span>
+                        <span class="font-bold">Unlocked</span>
                     </div>
                 {% else %}
                     <form method="POST" action="{{ url_for('redeem_assets') }}">
                         <button type="submit" id="redeem-assets-btn"
-                                class="w-full py-3 rounded-xl text-sm font-semibold transition-all duration-200
+                                class="w-full py-3.5 rounded-xl text-sm font-bold transition-all duration-200
                                 {% if current_user.token_balance >= 50 %}
-                                    bg-gradient-to-r from-purple-500 to-purple-600 text-white hover:from-purple-400 hover:to-purple-500 shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40
+                                    bg-blue-600 text-white hover:bg-blue-700 shadow-md shadow-blue-600/20
                                 {% else %}
-                                    bg-slate-800 text-slate-500 cursor-not-allowed border border-slate-700
+                                    bg-slate-100 text-slate-400 cursor-not-allowed
                                 {% endif %}"
                                 {% if current_user.token_balance < 50 %}disabled{% endif %}>
                             {% if current_user.token_balance >= 50 %}
@@ -200,7 +197,7 @@
 
             <!-- Dynamic Rewards from Admin CMS -->
             {% for reward in rewards %}
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shine-hover transition-all duration-300 hover:border-emerald-500/30" id="reward-{{ reward.id }}">
+            <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300" id="reward-{{ reward.id }}">
                 {% if reward.image_url %}
                 <div class="w-full h-40 overflow-hidden">
                     <img src="{{ reward.image_url }}" alt="{{ reward.name }}" class="w-full h-full object-cover">
@@ -208,27 +205,27 @@
                 {% endif %}
                 <div class="p-6 md:p-8">
                     <div class="flex items-center gap-3 mb-4">
-                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500/20 to-purple-500/20 flex items-center justify-center text-2xl">
+                        <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-2xl">
                             🎁
                         </div>
                         <div>
-                            <h3 class="font-display font-bold text-white text-lg">{{ reward.name }}</h3>
-                            <div class="flex items-center gap-1.5 text-xs">
-                                <span class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 font-semibold">{{ reward.token_cost }} tokens</span>
+                            <h3 class="font-display font-bold text-slate-900 text-lg">{{ reward.name }}</h3>
+                            <div class="flex items-center gap-1.5 text-xs mt-1">
+                                <span class="px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 font-bold uppercase tracking-wider">{{ reward.token_cost }} tokens</span>
                             </div>
                         </div>
                     </div>
 
-                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                    <p class="text-slate-500 text-sm leading-relaxed mb-6">
                         {{ reward.description }}
                     </p>
 
                     <button type="button"
-                            class="w-full py-3 rounded-xl text-sm font-semibold transition-all duration-200
+                            class="w-full py-3.5 rounded-xl text-sm font-bold transition-all duration-200
                             {% if current_user.token_balance >= reward.token_cost %}
-                                bg-gradient-to-r from-emerald-500 to-purple-600 text-white hover:from-emerald-400 hover:to-purple-500 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40
+                                bg-blue-600 text-white hover:bg-blue-700 shadow-md shadow-blue-600/20
                             {% else %}
-                                bg-slate-800 text-slate-500 cursor-not-allowed border border-slate-700
+                                bg-slate-100 text-slate-400 cursor-not-allowed
                             {% endif %}"
                             {% if current_user.token_balance < reward.token_cost %}disabled{% endif %}>
                         {% if current_user.token_balance >= reward.token_cost %}
@@ -246,42 +243,42 @@
         {% set user_verifications = current_user.verifications %}
         {% if user_verifications %}
         <div class="mt-10">
-            <h2 class="font-display text-xl font-bold text-white mb-4">Your Submissions</h2>
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+            <h2 class="font-display text-xl font-bold text-slate-900 mb-4">Your Submissions</h2>
+            <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm" id="vault-submissions-table">
                         <thead>
-                            <tr class="border-b border-slate-800 text-left">
-                                <th class="px-6 py-4 text-slate-400 font-medium">Tool</th>
-                                <th class="px-6 py-4 text-slate-400 font-medium">Order ID</th>
-                                <th class="px-6 py-4 text-slate-400 font-medium">Status</th>
-                                <th class="px-6 py-4 text-slate-400 font-medium">Submitted</th>
+                            <tr class="bg-slate-50 border-b border-slate-200 text-left">
+                                <th class="px-6 py-4 text-slate-600 font-bold uppercase tracking-wider text-xs">Tool</th>
+                                <th class="px-6 py-4 text-slate-600 font-bold uppercase tracking-wider text-xs">Order ID</th>
+                                <th class="px-6 py-4 text-slate-600 font-bold uppercase tracking-wider text-xs">Status</th>
+                                <th class="px-6 py-4 text-slate-600 font-bold uppercase tracking-wider text-xs">Submitted</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for v in user_verifications %}
-                            <tr class="border-b border-slate-800/50 hover:bg-slate-800/30 transition-colors">
-                                <td class="px-6 py-4 text-white font-medium">{{ v.tool.icon_emoji }} {{ v.tool.name }}</td>
-                                <td class="px-6 py-4 text-slate-300 font-mono text-xs">{{ v.order_id }}</td>
+                            <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                                <td class="px-6 py-4 text-slate-900 font-medium">{{ v.tool.icon_emoji }} {{ v.tool.name }}</td>
+                                <td class="px-6 py-4 text-slate-500 font-mono text-xs">{{ v.order_id }}</td>
                                 <td class="px-6 py-4">
                                     {% if v.status == 'approved' %}
-                                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-semibold">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold uppercase tracking-wider border border-emerald-100">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                                             Approved
                                         </span>
                                     {% elif v.status == 'holding' %}
-                                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-semibold">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span>
+                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold uppercase tracking-wider border border-blue-100">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
                                             Holding ({{ v.holding_until.strftime('%b %d') if v.holding_until else 'N/A' }})
                                         </span>
                                     {% elif v.status == 'rejected' %}
-                                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-red-500/10 text-red-400 text-xs font-semibold">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-red-400"></span>
+                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-50 text-red-700 text-xs font-bold uppercase tracking-wider border border-red-100">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
                                             Rejected
                                         </span>
                                     {% else %}
-                                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs font-semibold">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-amber-700 text-xs font-bold uppercase tracking-wider border border-amber-100">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
                                             Pending
                                         </span>
                                     {% endif %}
