@@ -199,6 +199,12 @@ def index():
     return render_template('index.html', tools=tools)
 
 
+@app.route('/tool/<int:tool_id>')
+def tool_detail(tool_id):
+    tool = Tool.query.get_or_404(tool_id)
+    return render_template('tool_detail.html', tool=tool)
+
+
 @app.route('/ref/<code>')
 def referral(code):
     """Save referral code in session and redirect to registration."""
