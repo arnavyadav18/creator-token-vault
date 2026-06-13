@@ -71,6 +71,7 @@ class Tool(db.Model):
     token_reward = db.Column(db.Integer, default=50)
     category = db.Column(db.String(80))
     icon_emoji = db.Column(db.String(10))
+    banner_url = db.Column(db.String(500))
 
 
 class Verification(db.Model):
@@ -417,9 +418,10 @@ def admin():
 
     users = User.query.all()
     rewards = Reward.query.all()
+    tools = Tool.query.all()
 
     return render_template('admin.html', pending=pending, holding=holding,
-                           all_verifications=all_verifications, users=users, rewards=rewards)
+                           all_verifications=all_verifications, users=users, rewards=rewards, tools=tools)
 
 
 @app.route('/admin/verify/<int:verification_id>', methods=['POST'])
@@ -488,6 +490,46 @@ def delete_reward(reward_id):
     return redirect(url_for('admin'))
 
 
+@app.route('/admin/tool/add', methods=['POST'])
+@login_required
+def add_tool():
+    if not current_user.is_admin:
+        abort(403)
+
+    name = request.form.get('name', '').strip()
+    description = request.form.get('description', '').strip()
+    affiliate_link = request.form.get('affiliate_link', '').strip()
+    banner_url = request.form.get('banner_url', '').strip() or None
+    token_reward = request.form.get('token_reward', type=int)
+
+    if not name or not description or not token_reward:
+        flash('Name, description, and token reward are required.', 'error')
+        return redirect(url_for('admin'))
+
+    tool = Tool(name=name, description=description, affiliate_url=affiliate_link, banner_url=banner_url, token_reward=token_reward, category='General', icon_emoji='🔧')
+    db.session.add(tool)
+    db.session.commit()
+
+    flash(f'Tool "{name}" added successfully.', 'success')
+    return redirect(url_for('admin'))
+
+
+@app.route('/admin/tool/delete/<int:tool_id>', methods=['POST'])
+@login_required
+def delete_tool(tool_id):
+    if not current_user.is_admin:
+        abort(403)
+
+    tool = Tool.query.get_or_404(tool_id)
+    # Avoid constraint errors by deleting associated verifications
+    Verification.query.filter_by(tool_id=tool.id).delete()
+    db.session.delete(tool)
+    db.session.commit()
+
+    flash(f'Tool "{tool.name}" deleted.', 'success')
+    return redirect(url_for('admin'))
+
+
 @app.route('/admin/user/<int:user_id>/update_tokens', methods=['POST'])
 @login_required
 def update_user_tokens(user_id):
@@ -545,6 +587,12 @@ with app.app_context():
         
     try:
         db.session.execute(db.text("ALTER TABLE verifications ADD COLUMN holding_until TIMESTAMP"))
+        db.session.commit()
+    except Exception:
+        db.session.rollback()
+        
+    try:
+        db.session.execute(db.text("ALTER TABLE tools ADD COLUMN banner_url VARCHAR(500)"))
         db.session.commit()
     except Exception:
         db.session.rollback()
