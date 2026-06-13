@@ -3,121 +3,102 @@
 
 {% block content %}
 <!-- Hero Section -->
-<div class="relative w-full border-b border-slate-200 dark:border-white/5 overflow-hidden transition-colors duration-300">
-    <!-- Abstract wavy background placeholder via CSS radial gradients -->
-    <div class="absolute inset-0 z-0 opacity-20 dark:opacity-40 transition-opacity duration-300">
-        <div class="absolute top-[-20%] left-[-10%] w-[70%] h-[70%] bg-blue-400/20 dark:bg-blue-600/20 blur-[120px] rounded-full"></div>
-        <div class="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-blue-300/10 dark:bg-blue-400/10 blur-[100px] rounded-full"></div>
-        <div class="absolute top-[30%] right-[20%] w-[40%] h-[40%] bg-amber-300/10 dark:bg-amber-500/10 blur-[120px] rounded-full"></div>
-    </div>
-
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24 text-center flex flex-col items-center">
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded bg-white dark:bg-[#111] text-slate-500 dark:text-slate-400 text-[10px] font-bold uppercase tracking-[0.2em] mb-8 border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none transition-colors duration-300">
-            <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+<div class="relative w-full overflow-hidden transition-colors duration-500">
+    <div class="relative z-10 w-full px-6 pt-40 pb-32 md:pt-56 md:pb-48 text-center flex flex-col items-center">
+        
+        <div class="augen-pill augen-pill-blue mb-10 border-slate-200 dark:border-white/20 text-slate-500 dark:text-slate-400">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-blue mr-2 inline-block"></span>
             Token Rewards Program
         </div>
         
-        <h1 class="font-sans text-5xl md:text-7xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight leading-tight max-w-4xl mx-auto transition-colors duration-300">
-            Unlock Premium<br/>
-            <span class="font-display italic text-blue-600 dark:text-blue-400 tracking-normal font-light">Creator Tools.</span>
+        <h1 class="font-sans text-5xl md:text-7xl lg:text-[6rem] font-medium text-black dark:text-white mb-8 tracking-tighter leading-[1.1] max-w-5xl mx-auto transition-colors duration-500">
+            Unlock Premium <br/>
+            <span class="text-brand-blue font-light tracking-tight">Creator Tools.</span>
         </h1>
         
-        <p class="text-slate-600 dark:text-slate-400 text-sm md:text-base max-w-xl mx-auto mb-10 leading-relaxed font-light transition-colors duration-300">
+        <p class="text-slate-500 dark:text-slate-400 text-lg md:text-xl max-w-2xl mx-auto mb-16 leading-relaxed font-light tracking-tight transition-colors duration-500">
             Purchase top-tier AI tools through verified links, earn tokens on every purchase, and redeem exclusive rewards in your Vault.
         </p>
         
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
-            <a href="#how-it-works" class="w-full sm:w-auto px-8 py-3 bg-slate-900 dark:bg-white text-white dark:text-black text-sm font-bold hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors">
+            <a href="#how-it-works" class="augen-pill augen-pill-filled-blue px-8 py-3 text-sm">
                 Get Started
             </a>
-            <a href="#featured-tools" class="w-full sm:w-auto px-8 py-3 bg-white dark:bg-transparent border border-slate-300 dark:border-white/20 text-slate-900 dark:text-white text-sm font-bold hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+            <a href="#featured-tools" class="augen-pill border-slate-300 dark:border-white/20 text-black dark:text-white hover:bg-slate-100 dark:hover:bg-white/10 px-8 py-3 text-sm transition-colors duration-300">
                 View Ecosystem
             </a>
         </div>
     </div>
+</div>
 
-    <!-- Steps -->
-    <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16" id="how-it-works">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
-            <div class="border-t border-amber-400/50 dark:border-amber-500/50 pt-4">
-                <p class="text-[10px] font-bold tracking-[0.2em] text-slate-500 uppercase mb-2">01 / Access</p>
-                <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-300">Login</h3>
-                <p class="text-xs text-slate-500 dark:text-slate-400 font-light leading-relaxed transition-colors duration-300">Sign in to your secure vault to track transactions and rewards.</p>
-            </div>
-            <div class="border-t border-blue-400/50 dark:border-blue-500/50 pt-4">
-                <p class="text-[10px] font-bold tracking-[0.2em] text-slate-500 uppercase mb-2">02 / Acquire</p>
-                <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-300">Purchase Tools</h3>
-                <p class="text-xs text-slate-500 dark:text-slate-400 font-light leading-relaxed transition-colors duration-300">Use our verified links for industry-leading AI creative suites.</p>
-            </div>
-            <div class="border-t border-emerald-400/50 dark:border-emerald-500/50 pt-4">
-                <p class="text-[10px] font-bold tracking-[0.2em] text-slate-500 uppercase mb-2">03 / Redeem</p>
-                <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-300">Submit Receipt</h3>
-                <p class="text-xs text-slate-500 dark:text-slate-400 font-light leading-relaxed transition-colors duration-300">Upload your verification to receive tokens directly in your vault.</p>
-            </div>
+<!-- Steps -->
+<div class="relative z-10 w-full px-6 pb-32 md:pb-48" id="how-it-works">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 text-center md:text-left">
+        <div class="border-t border-slate-200 dark:border-white/10 pt-8 transition-colors duration-500">
+            <p class="text-[10px] font-bold tracking-widest text-slate-400 uppercase mb-4">01 / Access</p>
+            <h3 class="text-xl md:text-2xl font-medium text-black dark:text-white mb-3 tracking-tight transition-colors duration-500">Login to Vault</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400 font-light leading-relaxed tracking-tight transition-colors duration-500">Sign in to your secure vault to track transactions and manage your earned rewards seamlessly.</p>
+        </div>
+        <div class="border-t border-slate-200 dark:border-white/10 pt-8 transition-colors duration-500">
+            <p class="text-[10px] font-bold tracking-widest text-brand-blue uppercase mb-4">02 / Acquire</p>
+            <h3 class="text-xl md:text-2xl font-medium text-black dark:text-white mb-3 tracking-tight transition-colors duration-500">Purchase Tools</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400 font-light leading-relaxed tracking-tight transition-colors duration-500">Use our verified links for industry-leading AI creative suites and amplify your workflow.</p>
+        </div>
+        <div class="border-t border-slate-200 dark:border-white/10 pt-8 transition-colors duration-500">
+            <p class="text-[10px] font-bold tracking-widest text-slate-400 uppercase mb-4">03 / Redeem</p>
+            <h3 class="text-xl md:text-2xl font-medium text-black dark:text-white mb-3 tracking-tight transition-colors duration-500">Submit Receipt</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400 font-light leading-relaxed tracking-tight transition-colors duration-500">Upload your verification receipt to receive tokens directly in your vault balance.</p>
         </div>
     </div>
 </div>
 
 <!-- Featured Tools -->
-<div class="w-full bg-slate-50 dark:bg-[#0a0a0a] transition-colors duration-300" id="featured-tools">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+<div class="w-full bg-[#f8f8f8] dark:bg-[#0a0a0a] transition-colors duration-500 border-t border-slate-200 dark:border-white/5" id="featured-tools">
+    <div class="max-w-7xl mx-auto px-6 py-32 md:py-48">
         
-        <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-12 gap-4 border-b border-slate-200 dark:border-white/5 pb-6 transition-colors duration-300">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-20 gap-8">
             <div>
-                <p class="text-[10px] font-bold tracking-[0.2em] text-blue-600 dark:text-blue-500 uppercase mb-2">Premium Directory</p>
-                <h2 class="font-sans text-3xl font-bold text-slate-900 dark:text-white mb-3 transition-colors duration-300">The Creator Ecosystem</h2>
-                <p class="text-slate-600 dark:text-slate-400 text-sm font-light max-w-xl transition-colors duration-300">Curated AI tools for visionaries. High-precision instruments designed to amplify human creativity and workflow efficiency.</p>
+                <p class="text-[10px] font-bold tracking-widest text-brand-blue uppercase mb-4">Premium Directory</p>
+                <h2 class="font-sans text-4xl md:text-5xl font-medium text-black dark:text-white mb-4 tracking-tighter transition-colors duration-500">The Creator Ecosystem</h2>
+                <p class="text-slate-500 dark:text-slate-400 text-base md:text-lg font-light max-w-2xl tracking-tight transition-colors duration-500">Curated AI tools for visionaries. High-precision instruments designed to amplify human creativity and workflow efficiency.</p>
             </div>
             <div>
-                <button class="px-4 py-2 bg-white dark:bg-[#111] border border-slate-200 dark:border-white/10 text-xs font-bold text-slate-800 dark:text-white uppercase tracking-wider flex items-center gap-2 hover:bg-slate-50 dark:hover:bg-white/5 shadow-sm dark:shadow-none transition-colors duration-300">
-                    Filter By: All Tools <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                <button class="augen-pill border-slate-300 dark:border-white/20 text-black dark:text-white hover:bg-slate-200 dark:hover:bg-white/10">
+                    Filter By: All Tools <svg class="w-3 h-3 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {% for tool in tools %}
-            <div class="relative group border border-slate-200 dark:border-white/10 bg-white dark:bg-[#111] overflow-hidden hover:border-slate-300 dark:hover:border-white/30 hover:shadow-lg dark:hover:shadow-none transition-all duration-300 flex flex-col h-full min-h-[320px]">
+            <div class="group border border-slate-200 dark:border-white/10 bg-[#fcfcfc] dark:bg-black overflow-hidden hover:border-brand-blue dark:hover:border-brand-blue transition-colors duration-300 flex flex-col h-full min-h-[380px]">
                 
-                <!-- Background Image Layer -->
-                <div class="absolute inset-0 z-0">
-                    {% if 'Runway' in tool.name %}
-                        <img src="{{ url_for('static', filename='img/runway.jpg') }}" alt="{{ tool.name }}" class="w-full h-full object-cover opacity-10 dark:opacity-20 group-hover:opacity-15 dark:group-hover:opacity-30 group-hover:scale-105 transition-all duration-700 mix-blend-multiply dark:mix-blend-screen grayscale">
-                    {% else %}
-                        <img src="https://picsum.photos/seed/tool{{ tool.id }}/800/800" alt="{{ tool.name }}" class="w-full h-full object-cover opacity-5 dark:opacity-10 group-hover:opacity-10 dark:group-hover:opacity-20 group-hover:scale-105 transition-all duration-700 mix-blend-multiply dark:mix-blend-screen grayscale">
-                    {% endif %}
-                    <!-- Gradient overlay to ensure text readability -->
-                    <div class="absolute inset-0 bg-gradient-to-t from-white via-white/90 dark:from-[#0a0a0a] dark:via-[#111]/80 to-transparent transition-colors duration-300"></div>
-                </div>
-
-                <!-- Token Pill -->
-                <div class="absolute top-4 right-4 z-20">
-                    <div class="px-2.5 py-1 bg-white/80 dark:bg-[#111] border border-slate-200 dark:border-white/10 text-slate-800 dark:text-white text-[10px] font-bold uppercase tracking-wider backdrop-blur-md shadow-sm dark:shadow-none transition-colors duration-300">
-                        +{{ tool.token_reward }} Tokens
-                    </div>
-                </div>
-
-                <!-- Content -->
-                <div class="relative z-10 p-8 flex-1 flex flex-col">
+                <div class="p-10 flex-1 flex flex-col">
                     <div class="mb-auto">
-                        <div class="text-3xl mb-4 opacity-70 dark:opacity-50 transition-opacity">{{ tool.icon_emoji }}</div>
-                        <h3 class="font-sans font-bold text-2xl text-slate-900 dark:text-white mb-1 transition-colors duration-300">
-                            <a href="{{ url_for('tool_detail', tool_id=tool.id) }}" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                        <div class="flex justify-between items-start mb-12">
+                            <div class="text-4xl opacity-80 dark:opacity-70 transition-opacity">{{ tool.icon_emoji }}</div>
+                            <div class="augen-pill border-slate-200 dark:border-white/10 text-black dark:text-white text-[10px] bg-[#f8f8f8] dark:bg-[#0a0a0a]">
+                                +{{ tool.token_reward }} Tokens
+                            </div>
+                        </div>
+                        
+                        <p class="text-[10px] font-bold tracking-widest text-slate-400 uppercase mb-3">{{ tool.category }}</p>
+                        <h3 class="font-sans font-medium text-2xl md:text-3xl text-black dark:text-white mb-4 tracking-tight transition-colors duration-300">
+                            <a href="{{ url_for('tool_detail', tool_id=tool.id) }}" class="hover:text-brand-blue transition-colors">
                                 {{ tool.name }}
                             </a>
                         </h3>
-                        <p class="text-[10px] font-bold tracking-[0.2em] text-slate-500 uppercase mb-4">{{ tool.category }}</p>
-                        <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed font-light line-clamp-3 transition-colors duration-300">
+                        <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed font-light line-clamp-3 tracking-tight transition-colors duration-500">
                             {{ tool.description }}
                         </p>
                     </div>
                     
-                    <div class="mt-8 pt-4 border-t border-slate-200 dark:border-white/10 flex items-center justify-between transition-colors duration-300">
-                        <a href="{{ url_for('tool_detail', tool_id=tool.id) }}" class="text-[10px] font-bold tracking-[0.2em] text-slate-900 dark:text-white uppercase hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-1">
-                            View Details <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+                    <div class="mt-12 pt-6 border-t border-slate-100 dark:border-white/5 flex items-center justify-between transition-colors duration-500">
+                        <a href="{{ url_for('tool_detail', tool_id=tool.id) }}" class="augen-pill augen-pill-blue">
+                            View Details
                         </a>
-                        <a href="{{ url_for('tool_detail', tool_id=tool.id) }}" class="w-6 h-6 rounded-full border border-slate-300 dark:border-white/20 flex items-center justify-center text-slate-400 dark:text-slate-500 hover:text-slate-900 dark:hover:text-white hover:border-slate-400 dark:hover:border-white transition-colors">
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <a href="{{ url_for('tool_detail', tool_id=tool.id) }}" class="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-brand-blue transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         </a>
                     </div>
                 </div>
@@ -128,30 +109,19 @@
 </div>
 
 <!-- CTA Banner -->
-<div class="w-full bg-blue-600">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 flex flex-col md:flex-row items-center justify-between gap-12">
-        <div class="md:w-1/2">
-            <p class="text-[10px] font-bold tracking-[0.2em] text-blue-200 uppercase mb-4">Ready To Scale?</p>
-            <h2 class="font-sans text-4xl md:text-5xl font-bold text-white mb-6 leading-tight tracking-tight">
-                Start Stacking Tokens Toward <br/>
-                <span class="font-display italic font-light tracking-normal text-white">Exclusive Rewards.</span>
-            </h2>
-            <p class="text-blue-100 text-sm max-w-md leading-relaxed font-light mb-8">
-                Join a network of professional creators leveraging premium AI technology while building digital equity. Create your account in seconds.
-            </p>
-            <a href="{{ url_for('register') }}" class="inline-block px-8 py-4 bg-white dark:bg-[#0a0a0a] text-blue-600 dark:text-white text-sm font-bold hover:bg-slate-100 dark:hover:bg-[#1a1a1a] transition-colors shadow-lg dark:shadow-none border border-transparent dark:hover:border-white/20">
-                Create Free Account
-            </a>
-        </div>
-        <div class="md:w-1/2 flex justify-center opacity-20 hidden md:flex">
-             <!-- Decorative abstract element for CTA -->
-             <svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="200" cy="200" r="199" stroke="white" stroke-width="2" stroke-dasharray="10 10"/>
-                <circle cx="200" cy="200" r="150" stroke="white" stroke-width="1"/>
-                <circle cx="200" cy="200" r="100" stroke="white" stroke-width="0.5"/>
-                <path d="M200 0 L200 400 M0 200 L400 200" stroke="white" stroke-width="1" stroke-opacity="0.5"/>
-            </svg>
-        </div>
+<div class="w-full bg-[#fcfcfc] dark:bg-[#000000] border-t border-slate-200 dark:border-white/5 transition-colors duration-500">
+    <div class="max-w-5xl mx-auto px-6 py-32 md:py-48 text-center">
+        <p class="text-[10px] font-bold tracking-widest text-brand-blue uppercase mb-6">Ready To Scale?</p>
+        <h2 class="font-sans text-4xl md:text-6xl font-medium text-black dark:text-white mb-8 leading-[1.1] tracking-tighter">
+            Start Stacking Tokens Toward <br/>
+            <span class="text-slate-400 dark:text-slate-500 font-light">Exclusive Rewards.</span>
+        </h2>
+        <p class="text-slate-500 dark:text-slate-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed font-light tracking-tight mb-12">
+            Join a network of professional creators leveraging premium AI technology while building digital equity.
+        </p>
+        <a href="{{ url_for('register') }}" class="augen-pill augen-pill-filled-blue px-10 py-4 text-sm">
+            Create Free Account
+        </a>
     </div>
 </div>
 {% endblock %}

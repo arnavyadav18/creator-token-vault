@@ -17,7 +17,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <!-- Use Inter to mimic PP Neue Montreal's wide, clean sans-serif look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -25,32 +26,21 @@
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'system-ui', 'sans-serif'],
-                        display: ['Outfit', 'system-ui', 'sans-serif'],
                     },
                     colors: {
                         brand: {
-                            blue: '#0d6efd',
-                            'blue-light': '#3b82f6',
-                            'blue-dark': '#0056b3',
+                            blue: '#0071e3', // Augen vivid blue
+                            black: '#000000',
+                            white: '#fcfcfc',
                         }
                     },
                     animation: {
-                        'glow-pulse': 'glow-pulse 3s ease-in-out infinite',
-                        'float': 'float 6s ease-in-out infinite',
-                        'slide-up': 'slide-up 0.5s ease-out',
-                        'fade-in': 'fade-in 0.6s ease-out',
+                        'slide-up': 'slide-up 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
+                        'fade-in': 'fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
                     },
                     keyframes: {
-                        'glow-pulse': {
-                            '0%, 100%': { boxShadow: '0 0 20px rgba(13, 110, 253, 0.1)' },
-                            '50%': { boxShadow: '0 0 40px rgba(13, 110, 253, 0.2)' },
-                        },
-                        'float': {
-                            '0%, 100%': { transform: 'translateY(0px)' },
-                            '50%': { transform: 'translateY(-10px)' },
-                        },
                         'slide-up': {
-                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '0%': { transform: 'translateY(30px)', opacity: '0' },
                             '100%': { transform: 'translateY(0)', opacity: '1' },
                         },
                         'fade-in': {
@@ -63,185 +53,194 @@
         }
     </script>
     <style>
-        /* Custom scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
+        /* Custom scrollbar - minimalist */
+        ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        .dark ::-webkit-scrollbar-thumb { background: #334155; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-        .dark ::-webkit-scrollbar-thumb:hover { background: #475569; }
+        ::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 4px; }
+        .dark ::-webkit-scrollbar-thumb { background: #1e293b; }
         
-        /* Tech/Cyber styling */
-        body { transition: background-color 0.3s ease, color 0.3s ease; }
-        
-        .nav-blur {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        body { 
+            transition: background-color 0.4s ease, color 0.4s ease; 
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
-        .dark .nav-blur {
-            background: rgba(10, 10, 10, 0.6);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        
+        /* Floating Pill Nav */
+        .nav-pill {
+            background: rgba(252, 252, 252, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 0.5px solid rgba(0, 0, 0, 0.05);
+        }
+        .dark .nav-pill {
+            background: rgba(0, 0, 0, 0.5);
+            border: 0.5px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Ambient background */
-        .ambient-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: radial-gradient(circle at top right, rgba(13, 110, 253, 0.05), transparent 40%),
-                        radial-gradient(circle at bottom left, rgba(13, 110, 253, 0.03), transparent 40%);
-            z-index: -1;
-            pointer-events: none;
+        /* Augen style primary pills */
+        .augen-pill {
+            border: 0.5px solid;
+            border-radius: 9999px;
+            padding: 0.2rem 1.1rem 0.35rem;
+            font-size: 0.75rem;
+            letter-spacing: -0.02em;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            font-weight: 400;
+        }
+
+        .augen-pill-blue {
+            border-color: #0071e3;
+            color: #0071e3;
+        }
+        
+        .augen-pill-blue:hover {
+            background-color: #0071e3;
+            color: #ffffff;
+        }
+
+        .augen-pill-filled-blue {
+            background-color: #0071e3;
+            color: #ffffff;
+            border-color: #0071e3;
+        }
+        
+        .augen-pill-filled-blue:hover {
+            opacity: 0.8;
         }
     </style>
 </head>
-<body class="bg-slate-50 dark:bg-[#0a0a0a] text-slate-600 dark:text-slate-300 font-sans min-h-screen flex flex-col antialiased transition-colors duration-300">
+<body class="bg-[#fcfcfc] dark:bg-[#000000] text-slate-900 dark:text-[#f2f2f4] font-sans min-h-screen flex flex-col antialiased transition-colors duration-500">
     
-    <div class="ambient-bg"></div>
+    <!-- Floating Nav -->
+    <div class="fixed top-6 left-0 w-full z-50 flex justify-center px-4 pointer-events-none">
+        <nav class="nav-pill rounded-full px-6 py-2 pointer-events-auto flex items-center gap-6 shadow-sm dark:shadow-none transition-colors duration-500">
+            <!-- Logo -->
+            <a href="{{ url_for('index') }}" class="font-bold text-lg tracking-tight text-black dark:text-white hover:opacity-70 transition-opacity">
+                augen.
+            </a>
 
-    <!-- Navbar -->
-    <nav class="nav-blur sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <!-- Logo -->
-                <a href="{{ url_for('index') }}" class="flex items-center group no-underline" style="text-decoration:none;" id="nav-logo">
-                    <span class="font-display font-black text-2xl tracking-tighter text-slate-900 dark:text-white">
-                        CV.
-                    </span>
-                </a>
-
-                <!-- Desktop Nav -->
-                <div class="hidden md:flex items-center gap-6">
-                    <a href="{{ url_for('index') }}" class="text-sm font-semibold text-slate-800 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors" id="nav-tools">Ecosystem</a>
-                    {% if current_user.is_authenticated %}
-                        <a href="{{ url_for('verify') }}" class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" id="nav-verify">Verify</a>
-                        <a href="{{ url_for('vault') }}" class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" id="nav-vault">Vault</a>
-                        {% if current_user.is_admin %}
-                            <a href="{{ url_for('admin') }}" class="text-sm font-medium text-amber-600 dark:text-amber-500 hover:text-amber-500 dark:hover:text-amber-400 transition-colors" id="nav-admin">Admin</a>
-                        {% endif %}
-                        <!-- Token Balance Pill -->
-                        <div class="ml-2 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-200/50 dark:bg-white/5 border border-slate-300 dark:border-white/10 text-slate-800 dark:text-white text-xs font-bold uppercase tracking-wide" id="nav-token-pill">
-                            <svg class="w-3.5 h-3.5 text-blue-600 dark:text-blue-500" fill="currentColor" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5" fill="none"/><text x="10" y="14" text-anchor="middle" font-size="10" fill="currentColor">T</text></svg>
-                            {{ current_user.token_balance }} Tokens
-                        </div>
-                        <a href="{{ url_for('logout') }}" class="ml-2 text-sm font-medium text-red-600 dark:text-red-500/80 hover:text-red-500 dark:hover:text-red-400 transition-colors" id="nav-logout">Logout</a>
-                    {% else %}
-                        <a href="{{ url_for('login') }}" class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" id="nav-login">Login</a>
-                        <a href="{{ url_for('register') }}" class="ml-2 px-6 py-2 rounded-full text-sm font-semibold bg-slate-900 dark:bg-white text-white dark:text-black hover:bg-slate-800 dark:hover:bg-slate-200 transition-all duration-200" id="nav-register">Register</a>
+            <!-- Desktop Nav Links -->
+            <div class="hidden md:flex items-center gap-6">
+                <a href="{{ url_for('index') }}" class="text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-black dark:hover:text-white transition-colors tracking-tight">Ecosystem</a>
+                {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('verify') }}" class="text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-black dark:hover:text-white transition-colors tracking-tight">Verify</a>
+                    <a href="{{ url_for('vault') }}" class="text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-black dark:hover:text-white transition-colors tracking-tight">Vault</a>
+                    {% if current_user.is_admin %}
+                        <a href="{{ url_for('admin') }}" class="text-xs font-medium text-amber-500 hover:text-amber-600 transition-colors tracking-tight">Admin</a>
                     {% endif %}
                     
-                    <!-- Theme Toggle -->
-                    <button id="theme-toggle" class="ml-2 p-2 rounded-full text-slate-500 hover:bg-slate-200 dark:hover:bg-white/10 transition-colors focus:outline-none">
-                        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-slate-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
-                        </svg>
-                        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.22 2.32a1 1 0 011.415 1.415l-.708.708a1 1 0 01-1.414-1.414l.707-.708zm-8.44 0a1 1 0 011.414 1.414l-.707.708a1 1 0 01-1.415-1.415l.708-.708zM10 5a5 5 0 100 10 5 5 0 000-10zm-6 5a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm14 0a1 1 0 011-1h1a1 1 0 110 2h-1a1 1 0 01-1-1zM6.93 14.78a1 1 0 11-1.414 1.415l-.708-.708a1 1 0 111.415-1.414l.708.708zm8.44 0a1 1 0 11-1.414 1.415l-.708-.708a1 1 0 111.415-1.414l.708.708zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1z" clip-rule="evenodd"></path>
-                        </svg>
-                    </button>
-                </div>
+                    <div class="h-4 w-[1px] bg-slate-200 dark:bg-white/10 mx-2"></div>
 
-                <!-- Mobile Menu Toggle -->
-                <div class="flex items-center gap-2 md:hidden">
-                    <button id="theme-toggle-mobile" class="p-2 rounded-lg text-slate-500 hover:bg-slate-200 dark:hover:bg-white/10 transition-colors focus:outline-none">
-                        <svg id="theme-toggle-dark-icon-mobile" class="hidden w-5 h-5 text-slate-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
-                        </svg>
-                        <svg id="theme-toggle-light-icon-mobile" class="hidden w-5 h-5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.22 2.32a1 1 0 011.415 1.415l-.708.708a1 1 0 01-1.414-1.414l.707-.708zm-8.44 0a1 1 0 011.414 1.414l-.707.708a1 1 0 01-1.415-1.415l.708-.708zM10 5a5 5 0 100 10 5 5 0 000-10zm-6 5a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm14 0a1 1 0 011-1h1a1 1 0 110 2h-1a1 1 0 01-1-1zM6.93 14.78a1 1 0 11-1.414 1.415l-.708-.708a1 1 0 111.415-1.414l.708.708zm8.44 0a1 1 0 11-1.414 1.415l-.708-.708a1 1 0 111.415-1.414l.708.708zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1z" clip-rule="evenodd"></path>
-                        </svg>
-                    </button>
-                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-white/10 transition" id="mobile-menu-btn">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 dark:border-white/10 bg-white dark:bg-[#0a0a0a] pb-4 shadow-lg absolute w-full transition-colors duration-300">
-            <div class="px-4 pt-3 space-y-1">
-                <a href="{{ url_for('index') }}" class="block px-4 py-2 rounded-lg text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5">Ecosystem</a>
-                {% if current_user.is_authenticated %}
-                    <a href="{{ url_for('verify') }}" class="block px-4 py-2 rounded-lg text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5">Verify Purchase</a>
-                    <a href="{{ url_for('vault') }}" class="block px-4 py-2 rounded-lg text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5">Vault</a>
-                    {% if current_user.is_admin %}
-                        <a href="{{ url_for('admin') }}" class="block px-4 py-2 rounded-lg text-sm text-amber-600 dark:text-amber-500 hover:text-amber-700 dark:hover:text-amber-400 hover:bg-slate-100 dark:hover:bg-white/5">Admin Panel</a>
-                    {% endif %}
-                    <div class="px-4 py-2 text-blue-600 dark:text-blue-400 text-sm font-semibold">🪙 {{ current_user.token_balance }} Tokens</div>
-                    <a href="{{ url_for('logout') }}" class="block px-4 py-2 rounded-lg text-sm text-red-600 dark:text-red-500/80 hover:bg-red-50 dark:hover:bg-red-500/10">Logout</a>
+                    <div class="flex items-center gap-1.5 text-xs font-medium text-brand-blue tracking-tight">
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5" fill="none"/><text x="10" y="14" text-anchor="middle" font-size="10" fill="currentColor">T</text></svg>
+                        {{ current_user.token_balance }}
+                    </div>
+                    
+                    <a href="{{ url_for('logout') }}" class="text-xs font-medium text-slate-400 hover:text-red-500 transition-colors tracking-tight ml-2">Logout</a>
                 {% else %}
-                    <a href="{{ url_for('login') }}" class="block px-4 py-2 rounded-lg text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5">Login</a>
-                    <a href="{{ url_for('register') }}" class="block px-4 py-2 rounded-lg text-sm text-white bg-slate-900 dark:bg-white/10 hover:bg-slate-800 dark:hover:bg-white/20 font-semibold mt-2 text-center">Register</a>
+                    <a href="{{ url_for('login') }}" class="text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-black dark:hover:text-white transition-colors tracking-tight">Login</a>
+                    <a href="{{ url_for('register') }}" class="augen-pill augen-pill-filled-blue font-medium ml-2">Register</a>
                 {% endif %}
             </div>
-        </div>
-    </nav>
 
-    <!-- Flash Messages -->
+            <div class="h-4 w-[1px] bg-slate-200 dark:bg-white/10 hidden md:block"></div>
+
+            <!-- Theme Toggle & Mobile Menu -->
+            <div class="flex items-center gap-3">
+                <button id="theme-toggle" class="text-slate-400 hover:text-black dark:hover:text-white transition-colors focus:outline-none flex items-center justify-center w-5 h-5">
+                    <svg id="theme-toggle-dark-icon" class="hidden w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    <svg id="theme-toggle-light-icon" class="hidden w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                </button>
+                <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="md:hidden text-slate-400 hover:text-black dark:hover:text-white transition focus:outline-none" id="mobile-menu-btn">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="hidden fixed inset-0 z-40 bg-[#fcfcfc] dark:bg-[#000000] pt-24 pb-12 px-6 flex flex-col justify-center items-center transition-colors duration-500">
+        <button onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="absolute top-8 right-8 text-slate-400 hover:text-black dark:hover:text-white">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+        <div class="flex flex-col items-center space-y-6 text-xl font-light tracking-tight">
+            <a href="{{ url_for('index') }}" class="text-slate-600 dark:text-slate-300 hover:text-black dark:hover:text-white">Ecosystem</a>
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('verify') }}" class="text-slate-600 dark:text-slate-300 hover:text-black dark:hover:text-white">Verify Purchase</a>
+                <a href="{{ url_for('vault') }}" class="text-slate-600 dark:text-slate-300 hover:text-black dark:hover:text-white">Vault</a>
+                {% if current_user.is_admin %}
+                    <a href="{{ url_for('admin') }}" class="text-amber-500 hover:text-amber-600">Admin Panel</a>
+                {% endif %}
+                <div class="text-brand-blue font-medium mt-4">{{ current_user.token_balance }} Tokens</div>
+                <a href="{{ url_for('logout') }}" class="text-slate-400 hover:text-red-500 mt-4 text-base">Logout</a>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="text-slate-600 dark:text-slate-300 hover:text-black dark:hover:text-white">Login</a>
+                <a href="{{ url_for('register') }}" class="augen-pill augen-pill-filled-blue mt-4 text-base px-6 py-2">Register</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Flash Messages (Floating minimalist style) -->
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 space-y-2 animate-slide-up relative z-40" id="flash-messages">
+            <div class="fixed top-24 left-1/2 -translate-x-1/2 z-40 w-full max-w-sm px-4 space-y-2 animate-slide-up" id="flash-messages">
                 {% for category, message in messages %}
-                    <div class="flex items-center gap-3 px-5 py-3 rounded-xl border bg-white dark:bg-[#111] shadow-sm
+                    <div class="flex items-center gap-3 px-5 py-3 rounded-2xl border bg-[#fcfcfc] dark:bg-[#111] shadow-xl backdrop-blur-md
                         {% if category == 'success' %}
-                            border-emerald-200 dark:border-emerald-500/30 text-emerald-700 dark:text-emerald-300
+                            border-emerald-200 dark:border-emerald-900 text-emerald-700 dark:text-emerald-400
                         {% elif category == 'error' %}
-                            border-red-200 dark:border-red-500/30 text-red-700 dark:text-red-300
+                            border-red-200 dark:border-red-900 text-red-700 dark:text-red-400
                         {% else %}
-                            border-blue-200 dark:border-blue-500/30 text-blue-700 dark:text-blue-300
+                            border-blue-200 dark:border-blue-900 text-brand-blue dark:text-brand-blue
                         {% endif %}
                     ">
-                        {% if category == 'success' %}
-                            <svg class="w-5 h-5 shrink-0 text-emerald-500 dark:text-emerald-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                        {% elif category == 'error' %}
-                            <svg class="w-5 h-5 shrink-0 text-red-500 dark:text-red-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
-                        {% else %}
-                            <svg class="w-5 h-5 shrink-0 text-blue-500 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
-                        {% endif %}
-                        <span class="text-sm font-medium">{{ message }}</span>
+                        <span class="text-xs font-medium tracking-tight">{{ message }}</span>
                     </div>
                 {% endfor %}
             </div>
+            <script>
+                setTimeout(() => {
+                    const flash = document.getElementById('flash-messages');
+                    if(flash) {
+                        flash.style.opacity = '0';
+                        flash.style.transition = 'opacity 0.5s ease';
+                        setTimeout(() => flash.remove(), 500);
+                    }
+                }, 4000);
+            </script>
         {% endif %}
     {% endwith %}
 
     <!-- Main Content -->
-    <main class="flex-1 w-full relative z-10 transition-colors duration-300">
+    <main class="flex-1 w-full relative z-10 transition-colors duration-500 pt-16">
         {% block content %}{% endblock %}
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-slate-100 dark:bg-[#0f0f0f] border-t border-slate-200 dark:border-white/5 mt-auto relative z-10 transition-colors duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
-                <div class="md:col-span-2">
-                    <span class="font-display font-black text-slate-900 dark:text-white text-xl tracking-tighter mb-4 block">Creator Token Vault</span>
-                    <p class="text-slate-500 dark:text-slate-500 text-sm max-w-sm mb-8 leading-relaxed">
-                        Premium, secure, dependable. The premium gateway to the future of digital creation and asset management.
-                    </p>
-                    <p class="text-slate-400 dark:text-slate-600 text-xs">
-                        &copy; {{ now().year if now is defined else '2026' }} Creator Token Vault. All rights reserved.
-                    </p>
+    <!-- Minimalist Footer -->
+    <footer class="mt-auto relative z-10 border-t border-slate-200 dark:border-white/10 transition-colors duration-500">
+        <div class="max-w-7xl mx-auto px-6 py-12 md:py-20 flex flex-col md:flex-row justify-between items-start md:items-end gap-12">
+            <div>
+                <span class="font-bold text-black dark:text-white text-lg tracking-tight mb-2 block">augen.</span>
+                <p class="text-slate-400 dark:text-slate-500 text-xs font-light tracking-tight max-w-xs">
+                    Pro-Human, AI-driven Invisible Computing that works effortlessly for you.
+                </p>
+            </div>
+            
+            <div class="flex gap-16 text-xs font-light tracking-tight">
+                <div class="flex flex-col space-y-3 text-slate-500 dark:text-slate-400">
+                    <a href="{{ url_for('vault') }}" class="hover:text-black dark:hover:text-white transition-colors">Vaults</a>
+                    <a href="{{ url_for('index') }}" class="hover:text-black dark:hover:text-white transition-colors">Ecosystem</a>
                 </div>
-                <div>
-                    <h4 class="text-slate-900 dark:text-white text-xs font-bold uppercase tracking-wider mb-6">Platform</h4>
-                    <div class="flex flex-col space-y-4 text-sm text-slate-500 dark:text-slate-400">
-                        <a href="{{ url_for('vault') }}" class="hover:text-slate-900 dark:hover:text-white transition-colors">Vaults</a>
-                        <a href="{{ url_for('index') }}" class="hover:text-slate-900 dark:hover:text-white transition-colors">Ecosystem</a>
-                        <a href="#" class="hover:text-slate-900 dark:hover:text-white transition-colors">Governance</a>
-                        <a href="#" class="hover:text-slate-900 dark:hover:text-white transition-colors">Stats</a>
-                    </div>
+                <div class="flex flex-col space-y-3 text-slate-500 dark:text-slate-400">
+                    <a href="#" class="hover:text-black dark:hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-black dark:hover:text-white transition-colors">Terms of Use</a>
                 </div>
-                <div>
-                    <h4 class="text-slate-900 dark:text-white text-xs font-bold uppercase tracking-wider mb-6">Legal</h4>
-                    <div class="flex flex-col space-y-4 text-sm text-slate-500 dark:text-slate-400">
-                        <a href="#" class="hover:text-slate-900 dark:hover:text-white transition-colors">Privacy Policy</a>
-                        <a href="#" class="hover:text-slate-900 dark:hover:text-white transition-colors">Terms of Service</a>
-                        <a href="#" class="hover:text-slate-900 dark:hover:text-white transition-colors">Security Audit</a>
-                        <a href="#" class="hover:text-slate-900 dark:hover:text-white transition-colors">Documentation</a>
-                    </div>
+                <div class="flex flex-col space-y-3 text-slate-500 dark:text-slate-400">
+                    <span class="text-slate-400 dark:text-slate-600">&copy; {{ now().year if now is defined else '2026' }} augen.</span>
                 </div>
             </div>
         </div>
@@ -251,22 +250,14 @@
         const themeToggleBtn = document.getElementById('theme-toggle');
         const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
         const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
-        
-        const themeToggleBtnMobile = document.getElementById('theme-toggle-mobile');
-        const themeToggleDarkIconMobile = document.getElementById('theme-toggle-dark-icon-mobile');
-        const themeToggleLightIconMobile = document.getElementById('theme-toggle-light-icon-mobile');
 
         function updateIcons() {
             if (document.documentElement.classList.contains('dark')) {
                 themeToggleLightIcon.classList.remove('hidden');
                 themeToggleDarkIcon.classList.add('hidden');
-                themeToggleLightIconMobile.classList.remove('hidden');
-                themeToggleDarkIconMobile.classList.add('hidden');
             } else {
                 themeToggleLightIcon.classList.add('hidden');
                 themeToggleDarkIcon.classList.remove('hidden');
-                themeToggleLightIconMobile.classList.add('hidden');
-                themeToggleDarkIconMobile.classList.remove('hidden');
             }
         }
         
@@ -284,7 +275,6 @@
         }
 
         themeToggleBtn.addEventListener('click', toggleTheme);
-        themeToggleBtnMobile.addEventListener('click', toggleTheme);
     </script>
     
     {% block scripts %}{% endblock %}
