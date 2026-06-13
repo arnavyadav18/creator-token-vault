@@ -2,66 +2,66 @@
 {% block title %}Verify Purchase — Creator Token Vault{% endblock %}
 
 {% block content %}
-<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 transition-colors duration-200">
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 transition-colors duration-300">
     <div class="animate-fade-in">
         <!-- Header -->
-        <div class="mb-10 border-b border-white/5 pb-6">
-            <p class="text-[10px] font-bold tracking-[0.2em] text-blue-500 uppercase mb-2">Claim Tokens</p>
-            <h1 class="font-sans text-3xl md:text-4xl font-bold text-white mb-2">Verify Purchase</h1>
-            <p class="text-slate-400 text-sm font-light">Submit your receipt details to earn tokens. Verifications are processed within 24 hours.</p>
+        <div class="mb-10 border-b border-slate-200 dark:border-white/5 pb-6 transition-colors duration-300">
+            <p class="text-[10px] font-bold tracking-[0.2em] text-blue-600 dark:text-blue-500 uppercase mb-2">Claim Tokens</p>
+            <h1 class="font-sans text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-300">Verify Purchase</h1>
+            <p class="text-slate-600 dark:text-slate-400 text-sm font-light transition-colors duration-300">Submit your receipt details to earn tokens. Verifications are processed within 24 hours.</p>
         </div>
 
         <!-- Info Banner -->
-        <div class="mb-8 bg-[#111] border border-blue-500/20 p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+        <div class="mb-8 bg-blue-50 dark:bg-[#111] border border-blue-200 dark:border-blue-500/20 p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 transition-colors duration-300">
             <div class="w-10 h-10 shrink-0 flex items-center justify-center text-xl">
                 ℹ️
             </div>
             <div>
-                <h3 class="text-blue-400 font-sans font-bold text-sm mb-1">Important Note</h3>
-                <p class="text-slate-400 text-xs font-light leading-relaxed">
-                    Tokens earned from new verifications are subject to a <span class="text-white font-bold">14-day holding period</span> before they can be redeemed for rewards. This is to ensure the subscription is not refunded.
+                <h3 class="text-blue-700 dark:text-blue-400 font-sans font-bold text-sm mb-1 transition-colors duration-300">Important Note</h3>
+                <p class="text-blue-900/70 dark:text-slate-400 text-xs font-light leading-relaxed transition-colors duration-300">
+                    Tokens earned from new verifications are subject to a <span class="text-blue-900 dark:text-white font-bold transition-colors duration-300">14-day holding period</span> before they can be redeemed for rewards. This is to ensure the subscription is not refunded.
                 </p>
             </div>
         </div>
 
         <!-- Form Card -->
-        <div class="bg-[#111] border border-white/10 p-8">
+        <div class="bg-white dark:bg-[#111] border border-slate-200 dark:border-white/10 p-8 shadow-sm dark:shadow-none transition-colors duration-300">
             <form method="POST" action="{{ url_for('verify') }}" class="space-y-6" id="verify-form">
                 
                 <!-- Tool Selection -->
                 <div>
-                    <label for="tool_id" class="block text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-2">Creator Tool</label>
+                    <label for="tool_id" class="block text-[10px] font-bold text-slate-600 dark:text-slate-500 uppercase tracking-[0.2em] mb-2 transition-colors duration-300">Creator Tool</label>
                     <select name="tool_id" id="tool_id" required
-                            class="w-full px-4 py-3 bg-[#0a0a0a] border border-white/10 text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none transition-colors text-sm appearance-none">
+                            class="w-full px-4 py-3 bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none transition-colors duration-300 text-sm appearance-none">
                         <option value="" disabled selected class="text-slate-500">Select the tool you purchased...</option>
                         {% for tool in tools %}
-                            <option value="{{ tool.id }}" class="text-white bg-[#111] py-2">{{ tool.icon_emoji }} {{ tool.name }} (+{{ tool.token_reward }} Tokens)</option>
+                            <option value="{{ tool.id }}" class="text-slate-900 dark:text-white bg-white dark:bg-[#111] py-2">{{ tool.icon_emoji }} {{ tool.name }} (+{{ tool.token_reward }} Tokens)</option>
                         {% endfor %}
                     </select>
                 </div>
 
                 <!-- Order ID -->
                 <div>
-                    <label for="order_id" class="block text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-2">Order / Receipt ID</label>
+                    <label for="order_id" class="block text-[10px] font-bold text-slate-600 dark:text-slate-500 uppercase tracking-[0.2em] mb-2 transition-colors duration-300">Order / Receipt ID</label>
                     <input type="text" name="order_id" id="order_id" required
-                           class="w-full px-4 py-3 bg-[#0a0a0a] border border-white/10 text-white placeholder-slate-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none transition-colors text-sm font-medium font-mono"
+                           class="w-full px-4 py-3 bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none transition-colors duration-300 text-sm font-medium font-mono"
                            placeholder="e.g. INV-2026-89012">
-                    <p class="text-slate-500 text-[10px] mt-2 font-light">You can find this on your email receipt or invoice from the tool provider.</p>
+                    <p class="text-slate-500 dark:text-slate-500 text-[10px] mt-2 font-light transition-colors duration-300">You can find this on your email receipt or invoice from the tool provider.</p>
                 </div>
 
                 <!-- Email Confirmation -->
                 <div>
-                    <label for="receipt_email" class="block text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-2">Receipt Email Address</label>
+                    <label for="receipt_email" class="block text-[10px] font-bold text-slate-600 dark:text-slate-500 uppercase tracking-[0.2em] mb-2 transition-colors duration-300">Receipt Email Address</label>
                     <input type="email" name="receipt_email" id="receipt_email" required
-                           class="w-full px-4 py-3 bg-[#0a0a0a] border border-white/10 text-white placeholder-slate-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none transition-colors text-sm font-medium"
+                           class="w-full px-4 py-3 bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none transition-colors duration-300 text-sm font-medium"
                            value="{{ current_user.email }}">
-                    <p class="text-slate-500 text-[10px] mt-2 font-light">The email address the receipt was sent to.</p>
+                    <p class="text-slate-500 dark:text-slate-500 text-[10px] mt-2 font-light transition-colors duration-300">The email address the receipt was sent to.</p>
                 </div>
 
                 <!-- Submit Button -->
-                <div class="pt-4 border-t border-white/5">
+                <div class="pt-4 border-t border-slate-200 dark:border-white/5 transition-colors duration-300">
                     <button type="submit" id="verify-submit"
-                            class="w-full py-4 bg-blue-600 text-white text-xs font-bold uppercase tracking-[0.1em] hover:bg-blue-500 transition-colors">
+                            class="w-full py-4 bg-blue-600 text-white text-xs font-bold uppercase tracking-[0.1em] hover:bg-blue-700 dark:hover:bg-blue-500 transition-colors shadow-sm dark:shadow-none">
                         Submit Verification
                     </button>
                 </div>
